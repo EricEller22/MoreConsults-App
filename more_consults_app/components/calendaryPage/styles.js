@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   
   containerBlue:{
     backgroundColor: '#43B4BB',
-    height: '35%',
+    height: '15%',
     width: "100%",
   },
   header:{
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderColor: "#FFF"
   },
   containerLegend:{
-    height: "60%",
+    height: "50%",
     alignItems: "center",
     justifyContent: "center",
     
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 500,
   },
-
+  
 
 
 
@@ -52,10 +52,6 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
-
-  },
-  buttons:{
-    flex: 1,
 
   },
   button:{
@@ -92,13 +88,53 @@ const styles = StyleSheet.create({
     textAlign: "left"
   },
   containerCalendary: {
-    flex: 1,
     marginHorizontal: 20,
     borderRadius: 10,
   },
+  listHours:{
+    padding: 10,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  itemContainer: {
+    flexDirection: "row",
+    margin: 3,
+    maxWidth: 80,
+    minWidth: 70,
+    height: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  availableItem: {
+    backgroundColor: '#43B4BB',
+    
+  },
+  unavailableItem: {
+    backgroundColor: '#D9D9D9',
+  },
 
-
-
+  buttons:{
+    height: "20%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  confirmarButton:{
+    width: "100px",
+    height: "30px",
+    backgroundColor: "#025E64",
+    justifyContent:"center",
+    alignItems: "center",
+    borderRadius: "20px",
+    margin: 5,
+  },
+  butonText:{
+    color: "#FFF",
+  },
 })
 
 export default styles;

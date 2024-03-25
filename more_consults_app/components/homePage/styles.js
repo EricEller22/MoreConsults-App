@@ -3,23 +3,24 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
+    width: '100%',
     alignItems: 'center',
   },
   logo:{
     width: '300px',
-    height: '50px', 
+    height: '100px', 
   },
   
   containerBlue:{
     backgroundColor: '#43B4BB',
     height: '35%',
-    width: "100%",
+    width: '100%',
     alignItems: "center",
     justifyContent: "center",
   },
   containerLegend:{
     height: "30%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
   agendButton:{
     width: "80%",
     height: 80,
+    padding: 10,
     backgroundColor: "#025E64",
     borderRadius: 10,
     alignItems: "center",

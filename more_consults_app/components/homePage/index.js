@@ -8,16 +8,14 @@ export default function HomePage() {
   <SafeAreaView style={styles.container}>
 
     <View style={styles.containerBlue}>
-
       <Image
         style={styles.logo}
         source={require('../../assets/Logo-mais-consultas2.png')}
       />
 
       <View style={styles.containerLegend}>
-        <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+        <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
       </View>
-
     </View>
     
 
@@ -32,7 +30,7 @@ export default function HomePage() {
       
         <View style={styles.lineButton}>
           <TouchableOpacity style={styles.moreButton}> 
-            <Text style={styles.textmoreButton}>Valores</Text>
+            <Text style={styles.textmoreButton}>Valores</Text>   
           </TouchableOpacity>
           <TouchableOpacity style={styles.moreButton}> 
             <Text style={styles.textmoreButton}>Histórico de atendimentos</Text>

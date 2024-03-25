@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
-import HomePage from './screens/homePage'
-import CalendaryPage from './screens/calendaryPage'
-
-
+import HomePage from './components/homePage/index' 
 
 export default function App() {
   return (
-    
-    <HomePage/>
+    <View style={styles.container}>
+      <HomePage/>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

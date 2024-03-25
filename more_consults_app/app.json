@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MoreConsults-App",
-    "slug": "MoreConsults-App",
+    "name": "more_consults_app",
+    "slug": "more_consults_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
