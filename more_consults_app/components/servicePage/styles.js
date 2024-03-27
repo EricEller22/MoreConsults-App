@@ -3,12 +3,11 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
-    alignItems: 'center',
+    width: '100%',
   },
   logo:{
-    width: '70px',
-    height: '70px', 
+    width: 70,
+    height: 70, 
   },
   
   containerBlue:{
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
   },
   legend:{
     fontSize: 15,
-    fontWeight: 700,
+    fontWeight: 'bold',
     textAlign: "center",
     padding: 20,
   },
@@ -80,15 +79,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+
   backButtonContainer:{
-    width: "100%",
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   backButton:{
     color: "#025E64",
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 18,
-    margin: 10,
-    textAlign: "left"
+    textAlign: "left",
+  },
+  iconContainer:{
+    borderRadius: 20, 
+    padding: 10, 
+  },
+  touchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
 

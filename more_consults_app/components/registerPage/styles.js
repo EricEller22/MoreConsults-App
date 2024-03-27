@@ -4,23 +4,24 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor: '#43B4BB',
     height: '100%',
+    width: '100%',
     flex: 1,
     alignItems: 'center',
   },
   containerLogo:{
-    width: '300px',
-    height: '30%', 
+    width: 300,
+    height: '20%',  
     justifyContent: 'center',
     alignItems: 'center',
   }, 
   logo:{ 
-    width: '300px',
-    height: '50px', 
+    width: 300,
+    height: 50, 
     margin: 10,
   },
   title:{
     fontSize: 30,
-    fontWeight: 700,
+    fontWeight: 'bold',
     margin: 5,
   },
 
@@ -28,13 +29,13 @@ const styles = StyleSheet.create({
   containerInputs:{
     backgroundColor: "#FFF",
     borderRadius: 10,
-    width: "80%",
-    height: "60%",
+    width: "90%",
+    height: "70%",
     alignItems: 'center',
     overflow: "hidden"
   },
   inputs:{
-    width: "80%",
+    width: "90%",
     height: "70%",
     
   },
@@ -42,44 +43,47 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#025E64',
     width: "100%",
-    height: "20px",
-    marginTop: 5,
+    height: 20,
+    marginTop: 10,
+    marginBottom: 15,
   },
   input:{
     color: '#5F5959', 
-    fontSize: 16,
+    fontSize: 20,
     marginVertical: -5,
   },
   containerInputPassword:{
     borderBottomWidth: 1,
     borderBottomColor: '#025E64',
     width: "100%",
-    height: "20px",
+    height: 20,
     marginTop: 60,
+    marginBottom: 5,
   },
 
 
   buttons:{
     height: "20%",
     flexDirection: "row",
-    justifyContent: "flex-end"
+
+    alignItems: 'flex-end'
   },
   voltarButton:{
-    width: "100px",
-    height: "30px",
+    width: 100,
+    height: 35,
     backgroundColor: "#5F5959",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   cadastrarButton:{
-    width: "100px",
-    height: "30px",
+    width: 100,
+    height: 35,
     backgroundColor: "#025E64",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   butonText:{

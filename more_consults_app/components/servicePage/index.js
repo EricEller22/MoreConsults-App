@@ -12,7 +12,7 @@ export default function ServicePage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
         </View>
 
         <Image
@@ -25,14 +25,21 @@ export default function ServicePage() {
         <Text style={styles.legend}>Agende agora o serviço que você precisa, de forma simples, fácil e rápida</Text>
       </View>
 
-    </View>
+    </View> 
     
 
     
     <View style={styles.containerWhite}>
 
       <View style={styles.backButtonContainer}>
-        <Text style={styles.backButton}><TouchableOpacity>Inicio</TouchableOpacity></Text>
+        <View style={styles.buttonContent}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+            <View style={styles.iconContainer}>
+              <Icon name="arrow-left" size={20} color="#025E64" />
+            </View>
+            <Text style={styles.backButton}>Início</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.containerLegendTwo}>

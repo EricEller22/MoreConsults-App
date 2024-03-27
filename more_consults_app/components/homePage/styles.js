@@ -6,9 +6,16 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  containerImage: {
+    justifyContent: "center",
+    alignItems: 'center',
+    width: "100%",
+    height: "20%"
+  },
+  
   logo:{
-    width: '300px',
-    height: '100px', 
+    width: 300,
+    height: 50
   },
   
   containerBlue:{
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 20,
     textTransform: "uppercase",
-    fontWeight: 500,
+    fontWeight: 'bold',
     textAlign: "center",
   },
   moreButtons:{
@@ -81,7 +88,10 @@ const styles = StyleSheet.create({
   lineButton:{
     flexDirection: 'row'
   },
-
+  iconContainer: {
+    margin: 5,
+    
+  },
 
 })
 

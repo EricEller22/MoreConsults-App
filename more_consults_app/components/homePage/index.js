@@ -8,10 +8,12 @@ export default function HomePage() {
   <SafeAreaView style={styles.container}>
 
     <View style={styles.containerBlue}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/Logo-mais-consultas2.png')}
-      />
+      <View style={styles.containerImage}>
+        <Image
+          source={require('../../assets/Logo-mais-consultas2.png')}
+          style={styles.logo}
+        />
+      </View> 
 
       <View style={styles.containerLegend}>
         <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
@@ -29,19 +31,37 @@ export default function HomePage() {
       <View style={styles.moreButtons}>
       
         <View style={styles.lineButton}>
+
           <TouchableOpacity style={styles.moreButton}> 
+            <View style={styles.iconContainer}>
+              <Icon name="dollar" size={50} color="#FFFFFF" />
+            </View>
             <Text style={styles.textmoreButton}>Valores</Text>   
+            
           </TouchableOpacity>
-          <TouchableOpacity style={styles.moreButton}> 
+
+          <TouchableOpacity style={styles.moreButton}>
+          <View style={styles.iconContainer}>
+            <Icon name="clock-o" size={50} color="#FFFFFF" />
+          </View> 
             <Text style={styles.textmoreButton}>Histórico de atendimentos</Text>
           </TouchableOpacity>
+
         </View>
 
         <View style={styles.lineButton}>
+
           <TouchableOpacity style={styles.moreButton}> 
+          <View style={styles.iconContainer}>
+            <Icon name="calendar" size={50} color="#FFFFFF" />
+          </View>
             <Text style={styles.textmoreButton}>Agenda</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={styles.moreButton}> 
+          <View style={styles.iconContainer}>
+            <Icon name="envelope" size={50} color="#FFFFFF" />
+          </View>
             <Text style={styles.textmoreButton}>Mensagens</Text>
           </TouchableOpacity>
         </View>

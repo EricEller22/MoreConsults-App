@@ -20,7 +20,7 @@ export default function LoginPage() {
     <View style={styles.inputs}>
     
       <View style={styles.containerInput}>
-      <TextInput 
+      <TextInput  
           style={styles.input}
           onChangeText={(text) => setCpf(text)}
           value={cpf}
