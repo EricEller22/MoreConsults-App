@@ -1,7 +1,8 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity, CheckBox  } from 'react-native' 
+import { SafeAreaView, Text, Image, View, TouchableOpacity} from 'react-native' 
 import {useState} from "react"
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
+import CheckBox from '@react-native-community/checkbox';
 
 export default function ConfirmDataPage() {
     const [isChecked, setIsChecked] = useState(false);
@@ -18,7 +19,7 @@ export default function ConfirmDataPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" !</Text></TouchableOpacity>
         </View>
 
         <Image
@@ -56,14 +57,21 @@ export default function ConfirmDataPage() {
         </View>
       </View>
 
+      {/** 
       <View style={styles.observation}>
         <Text style={styles.observationText}>Prazo máximo para cancelamento de até 3 dias úteis antes da data agendada! sujeito à cobrança extra no próximo agendamento</Text>
 
+        
         <View style={styles.observationCheckbox}>
-          <CheckBox value={isChecked} onValueChange={toggleCheckBox} style={styles.checkbox}/>
+        <CheckBox
+          value={isChecked}
+          onValueChange={setIsChecked}
+          style={styles.checkbox}
+        />
           <Text>Li e concordo!</Text>
         </View>
       </View>
+      */}
 
       <View style={styles.buttons}>
 

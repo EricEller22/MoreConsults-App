@@ -1,8 +1,8 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity, ScrollView, FlatList, Dimensions  } from 'react-native' 
-import {useState} from 'react'
+import { SafeAreaView, Text, Image, View, TouchableOpacity, ScrollView, FlatList, Dimensions,Button  } from 'react-native' 
+import {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-import { Calendar } from 'react-native-calendars';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const { width } = Dimensions.get('window');
 
@@ -10,13 +10,28 @@ export default function CalendaryPage() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null)
 
-  // Função para lidar com a seleção de um dia no calendário
-  const handleDatePress = (day) => {
-    setSelectedDate(day.dateString);
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date; 
+    setDate(currentDate);
+  };
+  
+  useEffect(() => {
+    setSelectedDate(date.toLocaleDateString());
+  }, [date]); 
+
+
+  const showDatepicker = () => {
+    setShow(true);
   };
 
-  // Estilo para marcar o dia selecionado
-  const markedDates = selectedDate ? { [selectedDate]: { selected: true, selectedColor: '#43B4BB' } } : {};
+  const isWeekend = (date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6; // 0 é Domingo e 6 é Sábado
+  };
+
 
  
   //Lista de horários
@@ -75,7 +90,7 @@ export default function CalendaryPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
         </View>
 
         <Image
@@ -93,24 +108,37 @@ export default function CalendaryPage() {
 
     
     <View style={styles.containerWhite}>
-      <View style={styles.backButtonContainer}>
-         <Text style={styles.backButton}><TouchableOpacity>Option </TouchableOpacity></Text>
+    <View style={styles.backButtonContainer}>
+        <View style={styles.buttonContent}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+            <View style={styles.iconContainer}>
+              <Icon name="arrow-left" size={20} color="#025E64" />
+            </View>
+            <Text style={styles.backButton}>Intituições</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.containerCalendary}>
-        <Calendar
-         onDayPress={handleDatePress}
-          markedDates={markedDates}        
-          hideExtraDays={true}
-          locale={{
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-           }}
-          
-          
-      
-        />
+        <TouchableOpacity onPress={showDatepicker} style={styles.buttonContainerCalendar}><Text style={styles.textButtonContainerCalendar}>Selecione a data clicando aqui:</Text></TouchableOpacity>
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+            minimumDate={new Date()} // Definindo a data mínima como hoje
+            maximumDate={new Date(new Date().getFullYear(), 11, 31)} // Definindo a data máxima como o final do ano atual
+            dateFormat="dayofweek day month"
+          />
+        )}
       </View>
+
+
+
+
       <View style={styles.listHours}>
         <FlatList
           data={data}
@@ -124,7 +152,6 @@ export default function CalendaryPage() {
       <View>
         <Text>Data selecionada: {selectedDate}</Text>
         <Text>Hora selecionada: {selectedHour}</Text>
-
       </View>
 
       <View style={styles.buttons}>

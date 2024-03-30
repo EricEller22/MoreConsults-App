@@ -3,19 +3,17 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: "center",
+    width: '100%',
     backgroundColor: '#43B4BB',
   },
   logo:{
-    width: '70px',
-    height: '70px', 
+    width: 70,
+    height: 70, 
   },
-  
+   
   containerBlue:{
     backgroundColor: '#43B4BB',
-    height: '15%',
+    height: '20%',
     width: "100%",
   },
   header:{
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
   title:{
     textTransform: "uppercase",
     color: "#025E64",
-    fontWeight: 700,
+    fontWeight: 'bold',
     fontSize: 18,
     padding: 10,
   },
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
 
 
@@ -85,7 +83,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     fontSize: 15,
     color: "#025E64",
-    fontWeight: 600,
+    fontWeight: '600',
   },
   dataOne:{
     alignItems: "flex-end",
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
   textOne:{
     marginVertical: 5,
     fontSize: 15,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   observation:{
     alignItems: "center",
@@ -122,21 +120,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   voltarButton:{
-    width: "100px",
-    height: "30px",
+    width: 120,
+    height: 35,
     backgroundColor: "#5F5959",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   confirmarButton:{
-    width: "100px",
-    height: "30px",
+    width: 120,
+    height: 35,
     backgroundColor: "#025E64",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   butonText:{

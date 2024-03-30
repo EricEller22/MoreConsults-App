@@ -12,7 +12,7 @@ export default function ConfirmDataPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
         </View>
 
         <Image
@@ -22,12 +22,19 @@ export default function ConfirmDataPage() {
       </View>
     </View>
     
-
+ 
     
     <View style={styles.containerWhite}>
 
-      <View style={styles.backButtonContainer}>
-        <Text style={styles.backButton}><TouchableOpacity>Data/Hora</TouchableOpacity></Text>
+    <View style={styles.backButtonContainer}>
+        <View style={styles.buttonContent}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+            <View style={styles.iconContainer}>
+              <Icon name="arrow-left" size={20} color="#025E64" />
+            </View>
+            <Text style={styles.backButton}>Intituições</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.containerLegendTwo}>

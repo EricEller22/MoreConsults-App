@@ -1,9 +1,32 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity  } from 'react-native' 
+import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
+import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ServicePage() {
+  const navigation = useNavigation();
+
+  const [serviceSelected, setServiceSelected] = useState(null);
   
+
+  const data = [
+    { key: '1', serviceName: 'psicologia' },
+    { key: '2', serviceName: 'fisioterapia' },
+    { key: '3', serviceName: 'oftamologia' },
+  ];
+  
+  const handleItemClick = (item) => {
+    console.log('Item clicado:', item);
+    setServiceSelected(item.serviceName);
+  };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.button} onPress={() => handleItemClick(item)}> 
+      <Text style={styles.textButton}>{item.serviceName}</Text>
+    </TouchableOpacity>
+  );
+
   return(
   <SafeAreaView style={styles.container}>
 
@@ -47,19 +70,10 @@ export default function ServicePage() {
       </View>
 
       <View style={styles.buttons}>
-      
-        <TouchableOpacity style={styles.button}> 
-          <Text style={styles.textButton}>Psicologia</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}> 
-          <Text style={styles.textButton}>Fisioterapia</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}> 
-          <Text style={styles.textButton}>Oftamologia</Text>
-        </TouchableOpacity>
-
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+        />
       </View>
     </View>
 

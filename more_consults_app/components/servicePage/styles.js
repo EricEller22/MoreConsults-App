@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   container:{
     height: '100%',
     width: '100%',
+    backgroundColor: '#43B4BB',
   },
   logo:{
     width: 70,
@@ -39,11 +40,8 @@ const styles = StyleSheet.create({
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
-
-
-
 
   containerWhite:{
     backgroundColor: '#FFF',
@@ -56,11 +54,10 @@ const styles = StyleSheet.create({
   },
   buttons:{
     flex: 1,
-
   },
   button:{
-    width: 250,
-    height: 60,
+    width: 300,
+    height: 70,
     backgroundColor: "#025E64",
     borderRadius: 10,
     alignItems: "center",
@@ -71,7 +68,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 20,
     textTransform: "uppercase",
-    fontWeight: 500,
+    fontWeight: 'bold',
     textAlign: "center",
   },
   containerLegendTwo:{
@@ -79,8 +76,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-
   backButtonContainer:{
     width: '100%',
     alignItems: 'flex-start',

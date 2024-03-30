@@ -3,20 +3,19 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
-    alignItems: 'center',
+    width: "100%",
+    backgroundColor: '#43B4BB',
   },
   logo:{
-    width: '70px',
-    height: '70px', 
+    width: 70,
+    height: 70, 
   },
-  
   containerBlue:{
     backgroundColor: '#43B4BB',
     height: '35%',
     width: "100%",
-  },
-  header:{
+  }, 
+  header:{ 
     width: '100%',
     flexDirection: "row",
     alignItems: "center",
@@ -33,17 +32,15 @@ const styles = StyleSheet.create({
   },
   legend:{
     fontSize: 15,
-    fontWeight: 700,
+    fontWeight: 'bold',
     textAlign: "center",
     padding: 20,
   },
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: 'bold',
   },
-
-
 
 
   containerWhite:{
@@ -57,11 +54,10 @@ const styles = StyleSheet.create({
   },
   buttons:{
     flex: 1,
-
   },
   button:{
-    width: 250,
-    height: 60,
+    width: 300,
+    height: 70,
     backgroundColor: "#025E64",
     borderRadius: 10,
     alignItems: "center",
@@ -72,25 +68,37 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 20,
     textTransform: "uppercase",
-    fontWeight: 500,
+    fontWeight: 'bold',
     textAlign: "center",
   },
   containerLegendTwo:{
     height: "25%",
     alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-    textAlign: "left"
+    justifyContent: "center", 
   },
   backButtonContainer:{
-    width: "100%",
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   backButton:{
     color: "#025E64",
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 18,
-    margin: 10,
-    textAlign: "left"
+    textAlign: "left",
+  },
+  iconContainer:{
+    borderRadius: 20, 
+    padding: 10, 
+  },
+  touchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
 

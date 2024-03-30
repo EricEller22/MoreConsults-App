@@ -1,8 +1,26 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity  } from 'react-native' 
+import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
+import { useState } from 'react';
 
 export default function ServicePage() {
+  const [serviceSelected ,setServiceSelected] = useState(null);
+
+  const data = [
+    { key: '1', instituteName: 'policlínica uvv' },
+    { key: '2', instituteName: 'hucam' },
+  ];
+  
+  const handleItemClick = (item) => {
+    console.log('Item clicado:', item);
+    setServiceSelected(item.instituteName);
+  };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.button} onPress={() => handleItemClick(item)}> 
+      <Text style={styles.textButton}>{item.instituteName}</Text>
+    </TouchableOpacity>
+  );
   
   return(
   <SafeAreaView style={styles.container}>
@@ -12,11 +30,11 @@ export default function ServicePage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! ></Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" !</Text></TouchableOpacity>
         </View>
 
         <Image
-          style={styles.logo}
+          style={styles.logo} 
           source={require('../../assets/Logo-mais-consultas3.png')}
         />
       </View>
@@ -31,8 +49,15 @@ export default function ServicePage() {
     
     <View style={styles.containerWhite}>
 
-      <View style={styles.backButtonContainer}>
-         <Text style={styles.backButton}><TouchableOpacity>Option </TouchableOpacity></Text>
+    <View style={styles.backButtonContainer}>
+        <View style={styles.buttonContent}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+            <View style={styles.iconContainer}>
+              <Icon name="arrow-left" size={20} color="#025E64" />
+            </View>
+            <Text style={styles.backButton}>Serviços</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.containerLegendTwo}>
@@ -40,14 +65,11 @@ export default function ServicePage() {
       </View>
 
       <View style={styles.buttons}>
-      
-        <TouchableOpacity style={styles.button}> 
-          <Text style={styles.textButton}>UVV</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}> 
-          <Text style={styles.textButton}>UFES</Text>
-        </TouchableOpacity>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+        />
 
       </View>
     </View>

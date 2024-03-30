@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
-    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#43B4BB',
   },
   logo:{
-    width: '70px',
-    height: '70px', 
+    width: 70,
+    height: 70, 
   },
-  
+   
   containerBlue:{
     backgroundColor: '#43B4BB',
     height: '20%',
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
   },
   legend:{
     fontSize: 15,
-    fontWeight: 700,
+    fontWeight: 'bold',
     textAlign: "center",
     padding: 20,
   },
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
 
 
@@ -61,16 +61,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   backButtonContainer:{
     width: "100%",
   },
+  backButtonContainer:{
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   backButton:{
     color: "#025E64",
-    fontWeight: 500,
-    fontSize: 15,
-    margin: 12,
-    textAlign: "left"
+    fontWeight: '500',
+    fontSize: 18,
+    textAlign: "left",
   },
+  iconContainer:{
+    borderRadius: 20, 
+    padding: 10, 
+  },
+  touchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   containerData:{
     width: "100%",
     height: "50%",
@@ -85,7 +104,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     fontSize: 15,
     color: "#025E64",
-    fontWeight: 600,
+    fontWeight: '600',
   },
   dataOne:{
     alignItems: "flex-end",
@@ -95,7 +114,7 @@ const styles = StyleSheet.create({
   textOne:{
     marginVertical: 5,
     fontSize: 15,
-    fontWeight: 600,
+    fontWeight: '600',
   },
 
 
@@ -105,21 +124,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   voltarButton:{
-    width: "100px",
-    height: "30px",
+    width: 120,
+    height: 35,
     backgroundColor: "#5F5959",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   confirmarButton:{
-    width: "100px",
-    height: "30px",
+    width: 120,
+    height: 35,
     backgroundColor: "#025E64",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   butonText:{

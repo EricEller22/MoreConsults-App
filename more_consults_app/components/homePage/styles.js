@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     alignItems: 'center',
+    backgroundColor: '#43B4BB',
   },
   containerImage: {
     justifyContent: "center",

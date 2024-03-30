@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#43B4BB',
   },
   containerLogo:{
     width: 300,

@@ -3,17 +3,17 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container:{
     height: '100%',
-    flex: 1,
-    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#43B4BB',
   },
   logo:{
-    width: '70px',
-    height: '70px', 
+    width: 70,
+    height: 70, 
   },
   
   containerBlue:{
     backgroundColor: '#43B4BB',
-    height: '15%',
+    height: '30%',
     width: "100%",
   },
   header:{
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
   },
   legend:{
     fontSize: 15,
-    fontWeight: 700,
+    fontWeight: 'bold',
     textAlign: "center",
     padding: 20,
   },
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
   
 
@@ -52,22 +52,14 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
-
+    alignItems: "center"
   },
-  button:{
-    width: 250,
-    height: 60,
-    backgroundColor: "#025E64",
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 20,
-  },
+ 
   textButton:{
     color: "#FFF",
     fontSize: 20,
     textTransform: "uppercase",
-    fontWeight: 500,
+    fontWeight: '500',
     textAlign: "center",
   },
   containerLegendTwo:{
@@ -78,19 +70,49 @@ const styles = StyleSheet.create({
     textAlign: "left"
   },
   backButtonContainer:{
-    width: "100%",
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   backButton:{
     color: "#025E64",
-    fontWeight: 500,
+    fontWeight: '500',
     fontSize: 18,
-    margin: 10,
-    textAlign: "left"
+    textAlign: "left",
   },
+  iconContainer:{
+    borderRadius: 20, 
+    padding: 10, 
+  },
+  touchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   containerCalendary: {
-    marginHorizontal: 20,
-    borderRadius: 10,
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: "80%",
   },
+  buttonContainerCalendar:{
+    backgroundColor: "#025E64",
+    width: "80%",
+    height: "25%",
+    margin: 10,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  textButtonContainerCalendar:{
+    color: "#FFF"
+  },
+ 
   listHours:{
     padding: 10,
     width: "100%",
@@ -100,9 +122,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     margin: 3,
-    maxWidth: 80,
-    minWidth: 70,
-    height: 25,
+    maxWidth: 100,
+    minWidth: 80,
+    height: 30,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -111,7 +133,6 @@ const styles = StyleSheet.create({
   },
   availableItem: {
     backgroundColor: '#43B4BB',
-    
   },
   unavailableItem: {
     backgroundColor: '#D9D9D9',
@@ -124,12 +145,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   confirmarButton:{
-    width: "100px",
-    height: "30px",
+    width: 120,
+    height: 40,
     backgroundColor: "#025E64",
     justifyContent:"center",
     alignItems: "center",
-    borderRadius: "20px",
+    borderRadius: 20,
     margin: 5,
   },
   butonText:{
