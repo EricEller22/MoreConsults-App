@@ -1,16 +1,34 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity} from 'react-native' 
 import {useState} from "react"
-import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
 import CheckBox from '@react-native-community/checkbox';
+import { useNavigation } from '@react-navigation/native';
+import { useAppContext } from '../../src/contexts/AppContext';
 
-export default function ConfirmDataPage() {
+
+export default function ConcludedPage() {
     const [isChecked, setIsChecked] = useState(false);
+    const navigation = useNavigation();
 
     const toggleCheckBox = () => {
       setIsChecked(!isChecked);
     };
   
+
+    const {instituteSelected, setInstituteSelected, serviceSelected, setServiceSelected, selectedDate, setSelectedDate, selectedHour, setSelectedHour, nomeUsuario} = useAppContext();
+
+    const resetData = () => {
+      setInstituteSelected(null);
+      setServiceSelected(null);
+      setSelectedDate(null);
+      setSelectedHour(null);
+    }
+
+    const handleConfirmPress = () => {
+      resetData();
+      navigation.navigate("Home");
+    };
+
   return(
   <SafeAreaView style={styles.container}>
 
@@ -19,7 +37,7 @@ export default function ConfirmDataPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" !</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario}!</Text></TouchableOpacity>
         </View>
 
         <Image
@@ -48,12 +66,12 @@ export default function ConfirmDataPage() {
           <Text style={styles.textOne}>Valor:</Text>
         </View>
         <View style={styles.dataTwo}>
-          <Text style={styles.textTwo}>Instituição:</Text>
-          <Text style={styles.textTwo}>Serviço:</Text>
-          <Text style={styles.textTwo}>Data e hora:</Text>
-          <Text style={styles.textTwo}>Doutor(a):</Text>
-          <Text style={styles.textTwo}>Endereço:</Text>
-          <Text style={styles.textTwo}>Valor:</Text>
+          <Text style={styles.textTwo}>{instituteSelected}</Text>
+          <Text style={styles.textTwo}>{serviceSelected}</Text>
+          <Text style={styles.textTwo}>{selectedDate} as {selectedHour}</Text>
+          <Text style={styles.textTwo}>{}</Text>
+          <Text style={styles.textTwo}>{}</Text>
+          <Text style={styles.textTwo}>{}</Text>
         </View>
       </View>
 
@@ -76,7 +94,7 @@ export default function ConfirmDataPage() {
       <View style={styles.buttons}>
 
         <View style={styles.buttonTwo}>
-          <TouchableOpacity style={styles.confirmarButton}>
+          <TouchableOpacity style={styles.confirmarButton} onPress={handleConfirmPress}>
             <Text style={styles.butonText}>OK</Text>
           </TouchableOpacity>
         </View>

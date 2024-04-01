@@ -48,11 +48,12 @@ const styles = StyleSheet.create({
 
   containerWhite:{
     backgroundColor: '#FFF',
-    height: '65%',
+    height: '80%',
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
-    alignItems: "center"
+    alignItems: "center",
+    paddingBottom: 10,
   },
  
   textButton:{
@@ -99,6 +100,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center', 
     width: "80%",
+    height: '90%'
+    
   },
   buttonContainerCalendar:{
     backgroundColor: "#025E64",
@@ -111,10 +114,11 @@ const styles = StyleSheet.create({
   },
   textButtonContainerCalendar:{
     color: "#FFF"
+
   },
  
   listHours:{
-    padding: 10,
+    padding: 10, 
     width: "100%",
     justifyContent: "center",
     alignItems: "center"

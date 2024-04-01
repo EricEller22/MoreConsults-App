@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: "#025E64",
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 20,
     padding: 10,
   },
   legend:{
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
   containerWhite:{
     backgroundColor: '#FFF',
-    height: '80%',
+    height: '90%',
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#025E64",
     fontWeight: '600',
+    textTransform: 'capitalize'
   },
   dataOne:{
     alignItems: "flex-end",

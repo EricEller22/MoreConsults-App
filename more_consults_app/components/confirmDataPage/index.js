@@ -1,9 +1,20 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
+import { useNavigation } from '@react-navigation/native';
+import { useAppContext } from '../../src/contexts/AppContext';
 
 export default function ConfirmDataPage() {
-  
+  const navigation = useNavigation();
+
+  const {instituteSelected, serviceSelected, selectedDate, selectedHour, nomeUsuario} = useAppContext();
+
+
+  const handleConfirmPress = () => {
+    navigation.navigate("Concluded")
+  };
+
+
   return(
   <SafeAreaView style={styles.container}>
 
@@ -12,7 +23,7 @@ export default function ConfirmDataPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario}! </Text></TouchableOpacity>
         </View>
 
         <Image
@@ -28,11 +39,11 @@ export default function ConfirmDataPage() {
 
     <View style={styles.backButtonContainer}>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+          <TouchableOpacity style={styles.touchable} onPress={() => navigation.goBack()}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>
-            <Text style={styles.backButton}>Intituições</Text>
+            <Text style={styles.backButton}>Data/Hora</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -49,10 +60,10 @@ export default function ConfirmDataPage() {
           <Text style={styles.textOne}>Valor:</Text>
         </View>
         <View style={styles.dataTwo}>
-          <Text style={styles.textTwo}>Instituição:</Text>
-          <Text style={styles.textTwo}>Serviço:</Text>
-          <Text style={styles.textTwo}>Data e hora:</Text>
-          <Text style={styles.textTwo}>Valor:</Text>
+          <Text style={styles.textTwo}>{instituteSelected}</Text>
+          <Text style={styles.textTwo}>{serviceSelected}</Text>
+          <Text style={styles.textTwo}>{selectedDate} as {selectedHour}</Text>
+          <Text style={styles.textTwo}>{}</Text>
         </View>
       </View>
 
@@ -64,7 +75,7 @@ export default function ConfirmDataPage() {
         </View>
 
         <View style={styles.buttonTwo}>
-          <TouchableOpacity style={styles.confirmarButton}>
+          <TouchableOpacity style={styles.confirmarButton} onPress={handleConfirmPress}>
             <Text style={styles.butonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>

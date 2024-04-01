@@ -3,15 +3,19 @@ import {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
+import { useAppContext } from '../../src/contexts/AppContext';
 
-const { width } = Dimensions.get('window');
 
 export default function CalendaryPage() {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedHour, setSelectedHour] = useState(null)
+  const {selectedDate, setSelectedDate} = useAppContext();
+  const {selectedHour, setSelectedHour} = useAppContext();
+  const {nomeUsuario} = useAppContext();
 
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
+
+  const navigation = useNavigation();
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date; 
@@ -70,7 +74,7 @@ export default function CalendaryPage() {
   
 
   //Horário renderizado de acordo com a lista
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({ item, index }) => { 
     const itemStyle = item.available ? styles.availableItem : styles.unavailableItem;
 
     return (
@@ -90,7 +94,7 @@ export default function CalendaryPage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario} ! </Text></TouchableOpacity>
         </View>
 
         <Image
@@ -110,7 +114,7 @@ export default function CalendaryPage() {
     <View style={styles.containerWhite}>
     <View style={styles.backButtonContainer}>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+          <TouchableOpacity style={styles.touchable} onPress={() => navigation.goBack()}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>
@@ -156,7 +160,7 @@ export default function CalendaryPage() {
 
       <View style={styles.buttons}>
         <View>
-          <TouchableOpacity style={styles.confirmarButton}>
+          <TouchableOpacity style={styles.confirmarButton} onPress={() => navigation.navigate("ConfirmData")}>
             <Text style={styles.butonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>

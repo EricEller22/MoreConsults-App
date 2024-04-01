@@ -3,12 +3,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import {useAppContext} from '../../src/contexts/AppContext'
 
 export default function ServicePage() {
   const navigation = useNavigation();
 
-  const [serviceSelected, setServiceSelected] = useState(null);
-  
+  //Variaveis globais do meu contexto
+  const {serviceSelected, setServiceSelected} = useAppContext();
+  const {nomeUsuario} = useAppContext();
 
   const data = [
     { key: '1', serviceName: 'psicologia' },
@@ -19,6 +21,7 @@ export default function ServicePage() {
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
     setServiceSelected(item.serviceName);
+    navigation.navigate("Institutes")
   };
 
   const renderItem = ({ item }) => (
@@ -35,7 +38,7 @@ export default function ServicePage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario} !</Text></TouchableOpacity>
         </View>
 
         <Image
@@ -56,7 +59,7 @@ export default function ServicePage() {
 
       <View style={styles.backButtonContainer}>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+          <TouchableOpacity style={styles.touchable} onPress={() => navigation.goBack()}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>

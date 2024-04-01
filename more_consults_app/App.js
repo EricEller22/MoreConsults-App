@@ -1,22 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomePage from './components/homePage/index' 
-import LoadingPage from './components/loadingPage/index'
-import LoginPage from './components/loginPage/index'
-import RegisterPage from './components/registerPage/index'
-import ServicePage from  './components/servicePage/index'
-import IntitutePage from './components/institutePage/index'
-import CalendaryPage from './components/calendaryPage/index';
-import ConfirmDatePage from './components/confirmDataPage/index'
-import ConcluedPage from './components/concludedPage/index'
+import 'react-native-gesture-handler';
 
-const Stack = createStackNavigator();
+import Routes from './src/routes';
+
+import { AppProvider } from './src/contexts/AppContext';
 
 export default function App() {
   return (
-    <HomePage/>
+    <AppProvider
+      item={ <Routes/> }>
+      
+    </AppProvider>
   );
 } 
 

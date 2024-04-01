@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   containerWhite:{
     backgroundColor: '#FFF',
-    height: '65%',
+    height: '75%',
     width: "100%",
     borderRadius: 20,
     marginTop: -20,

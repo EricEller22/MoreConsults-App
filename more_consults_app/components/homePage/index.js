@@ -1,11 +1,14 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-
+import { useNavigation } from '@react-navigation/native';
+import {useAppContext} from '../../src/contexts/AppContext'
 
 export default function HomePage() {
+  const navigation = useNavigation();
   
-  
+  const {nomeUsuario} = useAppContext()
+
   return(
   <SafeAreaView style={styles.container}>
 
@@ -15,10 +18,15 @@ export default function HomePage() {
           source={require('../../assets/Logo-mais-consultas2.png')}
           style={styles.logo}
         />
-      </View> 
+      </View>  
 
       <View style={styles.containerLegend}>
-        <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" ! </Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.openDrawer()} style={styles.legend}>
+          <View style={styles.profileIcon}>
+            <Icon name="user" size={40} color="#43B4BB" />
+          </View>
+          <Text style={styles.profileLegend}>Olá {nomeUsuario} ! </Text>
+        </TouchableOpacity>
       </View>
     </View>
     
@@ -26,7 +34,7 @@ export default function HomePage() {
     
     <View style={styles.containerWhite}>
 
-      <TouchableOpacity style={styles.agendButton}> 
+      <TouchableOpacity style={styles.agendButton} onPress={() => navigation.navigate("Services")}> 
         <Text style={styles.textAgendButton}>Agendar um novo atendimento</Text>
       </TouchableOpacity>
 
@@ -46,7 +54,7 @@ export default function HomePage() {
           <View style={styles.iconContainer}>
             <Icon name="clock-o" size={50} color="#FFFFFF" />
           </View> 
-            <Text style={styles.textmoreButton}>Histórico de atendimentos</Text>
+            <Text style={styles.textmoreButton}>Histórico de agendamentos</Text>
           </TouchableOpacity>
 
         </View>

@@ -2,9 +2,17 @@ import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 're
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import {useAppContext} from '../../src/contexts/AppContext'
 
-export default function ServicePage() {
-  const [serviceSelected ,setServiceSelected] = useState(null);
+
+export default function InstitutePage() {
+  const navigation = useNavigation();
+
+  //Variaveis globais do contexto
+  const {instituteSelected ,setInstituteSelected} = useAppContext();
+  const {nomeUsuario} = useAppContext();
+
 
   const data = [
     { key: '1', instituteName: 'policlínica uvv' },
@@ -13,7 +21,8 @@ export default function ServicePage() {
   
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
-    setServiceSelected(item.instituteName);
+    setInstituteSelected(item.instituteName);
+    navigation.navigate("Calendary");
   };
 
   const renderItem = ({ item }) => (
@@ -30,7 +39,7 @@ export default function ServicePage() {
       <View style={styles.header}>
       
         <View>
-          <TouchableOpacity><Text style={styles.profileLegend}>Olá "___" !</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario} !</Text></TouchableOpacity>
         </View>
 
         <Image
@@ -51,7 +60,7 @@ export default function ServicePage() {
 
     <View style={styles.backButtonContainer}>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {}}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {navigation.goBack()}}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>

@@ -4,11 +4,10 @@ const styles = StyleSheet.create({
   container:{
     height: '100%',
     width: '100%',
-    alignItems: 'center',
     backgroundColor: '#43B4BB',
   },
   containerImage: {
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: 'center',
     width: "100%",
     height: "20%"
@@ -23,11 +22,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#43B4BB',
     height: '35%',
     width: '100%',
-    alignItems: "center",
-    justifyContent: "center",
   },
   containerLegend:{
-    height: "30%",
+    height: "60%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -35,15 +32,27 @@ const styles = StyleSheet.create({
   profileLegend:{
     color: "#FFF",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: '500',
   },
-
+  legend:{
+    justifyContent: "center",
+    alignItems:"center"
+  },
+  profileIcon:{
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#FFF",
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
 
 
 
   containerWhite:{
     backgroundColor: '#FFF',
-    height: '65%',
+    height: '75%',
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
@@ -83,7 +92,7 @@ const styles = StyleSheet.create({
   textmoreButton:{
     color: "#FFF",
     fontSize: 15,
-    fontWeight: 500,
+    fontWeight: '500',
     textAlign: "center",
   },
   lineButton:{
