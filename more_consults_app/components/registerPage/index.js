@@ -1,6 +1,7 @@
 import { SafeAreaView, Text, Image, TextInput, TouchableOpacity, View   } from 'react-native' 
 import {useState} from  'react'
 import styles from './styles'
+import { useNavigation } from '@react-navigation/native';
 
 export default function RegisterPage() {
   const [nome, setNome] = useState('');
@@ -11,6 +12,12 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const navigation = useNavigation();
+
+  const handleRegisterPress = () =>{
+
+    navigation.navigate("Login");
+  }
 
   return(
   <SafeAreaView style={styles.container}>
@@ -99,13 +106,13 @@ export default function RegisterPage() {
       <View style={styles.buttons}>
 
         <View style={styles.buttonOne}>
-          <TouchableOpacity style={styles.voltarButton}>
+          <TouchableOpacity style={styles.voltarButton} onPress={() => navigation.goBack()}>
             <Text style={styles.butonText}>Voltar</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.buttonTwo}>
-          <TouchableOpacity style={styles.cadastrarButton}>
+          <TouchableOpacity style={styles.cadastrarButton} onPress={handleRegisterPress}>
             <Text style={styles.butonText}>Cadastrar</Text>
           </TouchableOpacity>
         </View>

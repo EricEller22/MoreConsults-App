@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#43B4BB',
+    backgroundColor: '#43B4BB', 
   },
   containerLogo:{
     width: 300,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 
   containerInputs:{
     backgroundColor: "#FFF",
-    borderRadius: 10,
+    borderRadius: 20,
     width: "90%",
     height: "70%",
     alignItems: 'center',

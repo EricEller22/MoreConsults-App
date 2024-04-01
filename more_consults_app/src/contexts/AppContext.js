@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 
 export const AppContext = createContext();
 
@@ -7,8 +7,10 @@ export const AppProvider = ({item}) =>{
   //Email do usuário
   //const [emailUsuario, setEmailUsuario] = useState('');
 
-  //Nome do usuário
   const [nomeUsuario, setNomeUsuario] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const [serviceSelected, setServiceSelected] = useState(null);
   
@@ -16,6 +18,17 @@ export const AppProvider = ({item}) =>{
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
+
+  const resetData = () => {
+    setInstituteSelected(null);
+    setServiceSelected(null);
+    setSelectedDate(null);
+    setSelectedHour(null);
+  }
+
+  useEffect(() => {
+  }, []);
+
   //Carrinho
   //const [carrinho, setCarrinho] = useState([])
   //Produtos obtidos do array de MERCADORIAS
@@ -51,7 +64,7 @@ export const AppProvider = ({item}) =>{
   return(
       <AppContext.Provider 
         value={{nomeUsuario, setNomeUsuario, serviceSelected, setServiceSelected, instituteSelected ,setInstituteSelected, 
-                selectedDate, setSelectedDate, selectedHour, setSelectedHour}}>
+                selectedDate, setSelectedDate, selectedHour, setSelectedHour,  resetData, cpf, setCpf, password, setPassword}}>
         
         {item}
       </AppContext.Provider>

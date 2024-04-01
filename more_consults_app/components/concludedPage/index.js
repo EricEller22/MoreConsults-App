@@ -15,14 +15,9 @@ export default function ConcludedPage() {
     };
   
 
-    const {instituteSelected, setInstituteSelected, serviceSelected, setServiceSelected, selectedDate, setSelectedDate, selectedHour, setSelectedHour, nomeUsuario} = useAppContext();
+    const {instituteSelected, serviceSelected, selectedDate, selectedHour, nomeUsuario, resetData} = useAppContext();
 
-    const resetData = () => {
-      setInstituteSelected(null);
-      setServiceSelected(null);
-      setSelectedDate(null);
-      setSelectedHour(null);
-    }
+    
 
     const handleConfirmPress = () => {
       resetData();

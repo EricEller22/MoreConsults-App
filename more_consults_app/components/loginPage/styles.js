@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50, 
     margin: 10,
-    position: 'fixed',
   },
   inputs:{
     width: "70%",
@@ -75,7 +74,12 @@ const styles = StyleSheet.create({
   },
   legend:{
     textDecorationLine: 'underline'
-  }
+  },
+  alert:{
+    marginTop: 10,
+    color: "#F00",
+    fontSize: 14,
+  },
   
 
 })

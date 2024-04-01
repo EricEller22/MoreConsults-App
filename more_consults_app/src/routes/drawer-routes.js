@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
-import StackRoutes from './stack-routes'
+import HomePage from '../../components/homePage/index';
 
 const Drawer = createDrawerNavigator();
 
@@ -8,7 +8,9 @@ export default function DrawerRoutes(){
 
     return(
         <Drawer.Navigator screenOptions={{headerShown: false}}>
-            <Drawer.Screen name='tabhome' component={StackRoutes} />
+            <Drawer.Screen name='Home' component={HomePage} />
+
+            
         </Drawer.Navigator>
     )
 }
