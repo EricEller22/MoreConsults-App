@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return(
   <SafeAreaView style={styles.container}>
-
+ 
     <View style={styles.containerBlue}>
       <View style={styles.containerImage}>
         <Image

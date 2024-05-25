@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: '20%',  
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
   }, 
   logo:{ 
     width: 300,
@@ -36,9 +36,8 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   inputs:{
-    width: "90%",
+    width: "80%",
     height: "70%",
-    
   },
   containerInput:{
     borderBottomWidth: 1,
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   },
   input:{
     color: '#5F5959', 
-    fontSize: 20,
+    fontSize: 16,
     marginVertical: -5,
   },
   containerInputPassword:{
@@ -58,16 +57,15 @@ const styles = StyleSheet.create({
     borderBottomColor: '#025E64',
     width: "100%",
     height: 20,
-    marginTop: 60,
+    marginTop: 30,
     marginBottom: 5,
   },
 
 
   buttons:{
-    height: "20%",
+    height: "15%",
     flexDirection: "row",
-
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   voltarButton:{
     width: 100,
@@ -90,6 +88,11 @@ const styles = StyleSheet.create({
   butonText:{
     color: "#FFF",
   },
+  alert:{
+    color: "#F00",
+    fontSize: 12,
+  },
+  
 
   
   

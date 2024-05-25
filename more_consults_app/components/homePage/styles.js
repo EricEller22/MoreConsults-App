@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#43B4BB',
   },
   containerImage: {
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: 'center',
     width: "100%",
-    height: "20%"
+    height: "40%"
   },
   
   logo:{
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
   
   containerBlue:{
     backgroundColor: '#43B4BB',
-    height: '35%',
+    height: '40%',
     width: '100%',
   },
   containerLegend:{
-    height: "60%",
+    height: "40%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
   containerWhite:{
     backgroundColor: '#FFF',
-    height: '75%',
+    height: '70%',
     width: "100%",
     borderRadius: 20,
     marginTop: -20,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   moreButtons:{
     flex: 1,
-    margin: 40,
+    margin: 20,
   },
   moreButton:{
     width: 130,

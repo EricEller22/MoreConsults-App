@@ -13,7 +13,6 @@ export default function InstitutePage() {
   const {instituteSelected ,setInstituteSelected} = useAppContext();
   const {nomeUsuario} = useAppContext();
 
-
   const data = [
     { key: '1', instituteName: 'policlínica uvv' },
     { key: '2', instituteName: 'hucam' },

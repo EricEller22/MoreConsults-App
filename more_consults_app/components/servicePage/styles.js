@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   logo:{
     width: 70,
     height: 70, 
-  },
+  }, 
   
   containerBlue:{
     backgroundColor: '#43B4BB',
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 10,
+    paddingTop: 20,
+    paddingHorizontal: 5,
     borderBottomWidth: 0.5,
     borderColor: "#FFF"
   },

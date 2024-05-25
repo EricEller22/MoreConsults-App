@@ -1,24 +1,23 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
+import axios from 'axios';
+
 
 export const AppContext = createContext();
 
 //Contexto uqe engloba todas as telas do APP,
 export const AppProvider = ({item}) =>{
-  //Email do usuário
-  //const [emailUsuario, setEmailUsuario] = useState('');
 
-  const [nomeUsuario, setNomeUsuario] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
-
-
+  //serviço selecionado
   const [serviceSelected, setServiceSelected] = useState(null);
-  
+
+  //Instituição selecionada
   const [instituteSelected ,setInstituteSelected] = useState(null);
 
+  //Data e hora selecionados
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
 
+  //Função que reseta os dados ao final de um agendamento
   const resetData = () => {
     setInstituteSelected(null);
     setServiceSelected(null);
@@ -26,45 +25,73 @@ export const AppProvider = ({item}) =>{
     setSelectedHour(null);
   }
 
-  useEffect(() => {
-  }, []);
+  //USUARIOS
+  //Função que cria um usuário no banco
+  const createUserContext = async (nome, cpf, telefone, dataNascimento, email, password) => {
+    const newUser = { nome, cpf, telefone, dataNascimento, email, password };
+    try {
+      const response = await axios.post('url/register', newUser);
+      if (response.status === 201) {
+        console.log("Usuário criado com sucesso");
+        setUserList([...userList, newUser]);
+      } else {
+        console.error("Erro ao registrar usuário", response.data);
+      }
+    } catch (error) {
+      console.error('Erro ao registrar usuário', error);
+    }
+  };
 
-  //Carrinho
-  //const [carrinho, setCarrinho] = useState([])
-  //Produtos obtidos do array de MERCADORIAS
-  //const [produtosContext, setProdutosContext] = useState(MERCADORIAS);
-  //Guarda a quantidade de vendas após uma ser efetuada
-  //const [numeroVendas, setNumeroVendas] = useState(0)
-  //Guarda qual linguagem a aplicação está
-  //const [lang, setLang] = useState('pt_br')
- 
-  //Adiciona os dados correntes do usuario aos estados de nomeDoUsuario e emailUsuario para serem acessados de qualquer lugar da aplicação 
-  //const guardaUser = (email, nome) => {
-   // setEmailUsuario(email);
-   // setNomeUsuario(nome)
-  //};
+  const [userList, setUserList] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loginError, setLoginError] = useState('');
 
-  //Recebe um item como parametro e o adiciona ao array do carrinho (Função chamada na tela de detalhes do produto de acordo com os dados daquele produto)
-  //const adicionarAoCarrinho = (item) =>{
-   //   setCarrinho([...carrinho, item]); 
-  //}
-
-  //Faz uma contagem simples da quantidade de vendas realizadas por sessao
-  //const adicionarVenda = () =>{
-  //    setNumeroVendas((venda) => venda + 1)
-  // }
- 
-  //Limpa o carrinho
-  //const limparCarrinho = () =>{ 
-  //  setCarrinho([])
-  //}
-
-
+  //Função que busca um usuário no banco
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('url/users');
+      if (response.status === 200) {
+        USERS.push(response.data)
+      } else {
+        console.error("Erro ao obter usuários", response.data);
+      }
+    } catch (error) {
+      console.error('Erro ao obter usuários', error);
+    }
+  };
   
+  //Função que faz a parte de login
+  const loginUser = async (cpf, password) => {
+    try {
+      const response = await axios.post('url/login', { cpf, password });
+      if (response.status === 200) {
+        setCurrentUser(response.data.user);
+        setLoginError('');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setLoginError('Usuário não encontrado');
+      } else if (error.response && error.response.status === 401) {
+        setLoginError('Senha incorreta');
+      } else {
+        setLoginError('Erro ao fazer login');
+      }
+    }
+  };
+
+  //INSTITUIÇÕES
+
+
+  //SERVIÇOS
+
+
+  //DATA E HORA
+
   return(
       <AppContext.Provider 
-        value={{nomeUsuario, setNomeUsuario, serviceSelected, setServiceSelected, instituteSelected ,setInstituteSelected, 
-                selectedDate, setSelectedDate, selectedHour, setSelectedHour,  resetData, cpf, setCpf, password, setPassword}}>
+        value={{serviceSelected, setServiceSelected, instituteSelected ,setInstituteSelected, 
+                selectedDate, setSelectedDate, selectedHour, setSelectedHour,  resetData, createUserContext, fetchUsers,
+                loginUser, loginError, currentUser}}>
         
         {item}
       </AppContext.Provider>

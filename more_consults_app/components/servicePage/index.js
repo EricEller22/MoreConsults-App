@@ -17,7 +17,7 @@ export default function ServicePage() {
     { key: '2', serviceName: 'fisioterapia' },
     { key: '3', serviceName: 'oftamologia' },
   ];
-  
+   
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
     setServiceSelected(item.serviceName);
