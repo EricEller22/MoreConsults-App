@@ -10,13 +10,14 @@ export default function InstitutePage() {
   const navigation = useNavigation();
 
   //Variaveis globais do contexto
-  const {instituteSelected ,setInstituteSelected} = useAppContext();
+  const { instituteSelected, setInstituteSelected, instituteList, serviceSelected, fetchInstitutesByService } = useAppContext();
   const {nomeUsuario} = useAppContext();
 
-  const data = [
-    { key: '1', instituteName: 'policlínica uvv' },
-    { key: '2', instituteName: 'hucam' },
-  ];
+  useEffect(() => {
+    if (serviceSelected) {
+      fetchInstitutesByService(serviceSelected.id);
+    }
+  }, [serviceSelected]);
   
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
@@ -75,7 +76,8 @@ export default function InstitutePage() {
       <View style={styles.buttons}>
 
         <FlatList
-          data={data}
+          data={instituteList}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
         />
 

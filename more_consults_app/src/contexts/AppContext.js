@@ -7,9 +7,6 @@ export const AppContext = createContext();
 //Contexto uqe engloba todas as telas do APP,
 export const AppProvider = ({item}) =>{
 
-  //serviço selecionado
-  const [serviceSelected, setServiceSelected] = useState(null);
-
   //Instituição selecionada
   const [instituteSelected ,setInstituteSelected] = useState(null);
 
@@ -80,18 +77,45 @@ export const AppProvider = ({item}) =>{
   };
 
   //INSTITUIÇÕES
+  const [serviceSelected, setServiceSelected] = useState(null);
+  const [instituteList, setInstituteList] = useState([]);
 
+  const fetchInstitutesByService = async (serviceId) => {
+    try {
+      const response = await axios.get(`url/institutes?serviceId=${serviceId}`);
+      if (response.status === 200) {
+        setInstituteList(response.data);
+      } else {
+        console.error("Erro ao obter instituições", response.data);
+      }
+    } catch (error) {
+      console.error('Erro ao obter instituições', error);
+    }
+  };
 
   //SERVIÇOS
+  const [services, setServices] = useState([]);
 
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get('url/services');
+      if (response.status === 200) {
+        setServices(response.data);
+      } else {
+        console.error("Erro ao obter serviços", response.data);
+      }
+    } catch (error) {
+      console.error('Erro ao obter serviços', error);
+    }
+  };
 
   //DATA E HORA
 
   return(
       <AppContext.Provider 
-        value={{serviceSelected, setServiceSelected, instituteSelected ,setInstituteSelected, 
-                selectedDate, setSelectedDate, selectedHour, setSelectedHour,  resetData, createUserContext, fetchUsers,
-                loginUser, loginError, currentUser}}>
+        value={{serviceSelected, setServiceSelected, instituteSelected , setInstituteSelected, 
+                selectedDate, setSelectedDate, selectedHour, setSelectedHour, resetData, createUserContext, fetchUsers,
+                loginUser, loginError, currentUser, instituteList, fetchInstitutesByService, services, fetchServices}}>
         
         {item}
       </AppContext.Provider>

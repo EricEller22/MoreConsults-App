@@ -1,7 +1,6 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {useAppContext} from '../../src/contexts/AppContext'
 
@@ -9,26 +8,27 @@ export default function ServicePage() {
   const navigation = useNavigation();
 
   //Variaveis globais do meu contexto
-  const {serviceSelected, setServiceSelected} = useAppContext();
+  const { setServiceSelected, fetchInstitutesByService, fetchServices, services } = useAppContext();
   const {nomeUsuario} = useAppContext();
-
-  const data = [
-    { key: '1', serviceName: 'psicologia' },
-    { key: '2', serviceName: 'fisioterapia' },
-    { key: '3', serviceName: 'oftamologia' },
-  ];
    
-  const handleItemClick = (item) => {
-    console.log('Item clicado:', item);
-    setServiceSelected(item.serviceName);
+  const handleServiceClick = (service) => {
+    console.log('Item clicado:', service);
+
+    setServiceSelected(service);
+    fetchInstitutesByService(service.id);
+
     navigation.navigate("Institutes")
   };
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.button} onPress={() => handleItemClick(item)}> 
+  const renderServiceItem = ({ item }) => (
+    <TouchableOpacity style={styles.button} onPress={() => handleServiceClick(item)}> 
       <Text style={styles.textButton}>{item.serviceName}</Text>
     </TouchableOpacity>
   );
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   return(
   <SafeAreaView style={styles.container}>
@@ -74,8 +74,9 @@ export default function ServicePage() {
 
       <View style={styles.buttons}>
         <FlatList
-          data={data}
-          renderItem={renderItem}
+          data={services}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderServiceItem}
         />
       </View>
     </View>
