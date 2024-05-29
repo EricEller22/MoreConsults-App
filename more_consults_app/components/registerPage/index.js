@@ -109,7 +109,7 @@ export default function RegisterPage() {
     const isConfirmPasswordValid = validateConfirmPassword(password, confirmPassword);
 
     if (isNomeValid && isCpfValid && isTelefoneValid && isDataNascimentoValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-      await createUserContext(nome, cpf, telefone, dataNascimento, email, password);
+      await createUserContext(cpf, nome, telefone, dataNascimento, email, password);
       navigation.navigate('Login');
     }
   };

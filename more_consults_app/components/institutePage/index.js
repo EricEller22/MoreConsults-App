@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {useAppContext} from '../../src/contexts/AppContext'
 
@@ -21,13 +21,14 @@ export default function InstitutePage() {
   
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
-    setInstituteSelected(item.instituteName);
+    setInstituteSelected(item.id);
     navigation.navigate("Calendary");
   };
 
+
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.button} onPress={() => handleItemClick(item)}> 
-      <Text style={styles.textButton}>{item.instituteName}</Text>
+      <Text style={styles.textButton}>{item.name}</Text>
     </TouchableOpacity>
   );
   

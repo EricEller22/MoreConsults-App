@@ -12,6 +12,7 @@ import InstitutePage from '../../components/institutePage/index'
 import CalendaryPage from '../../components/calendaryPage/index'
 import ConfirmDataPage from '../../components/confirmDataPage/index'
 import ConcludedPage from '../../components/concludedPage/index'
+import ConfigPage from '../../components/configPage/index'
 
 const Stack = createNativeStackNavigator();
 

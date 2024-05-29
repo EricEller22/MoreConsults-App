@@ -1,5 +1,6 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList  } from 'react-native' 
+import { SafeAreaView, Text, Image, View, TouchableOpacity, FlatList} from 'react-native' 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState, useEffect } from 'react';
 import styles from './styles'
 import { useNavigation } from '@react-navigation/native';
 import {useAppContext} from '../../src/contexts/AppContext'
@@ -18,11 +19,12 @@ export default function ServicePage() {
     fetchInstitutesByService(service.id);
 
     navigation.navigate("Institutes")
-  };
+  }; 
+
 
   const renderServiceItem = ({ item }) => (
     <TouchableOpacity style={styles.button} onPress={() => handleServiceClick(item)}> 
-      <Text style={styles.textButton}>{item.serviceName}</Text>
+      <Text style={styles.textButton}>{item.name}</Text>
     </TouchableOpacity>
   );
 
