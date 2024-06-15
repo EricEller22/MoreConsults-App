@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   title:{
     fontSize: 30,
     fontWeight: 'bold',
-    margin: 5,
+    margin: 10,
   },
 
 
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 20,
     marginTop: 30,
-    marginBottom: 5,
+    marginBottom: 10,
   },
 
 

@@ -1,16 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { ToastAndroid } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AppContext = createContext();
 
 //Contexto uqe engloba todas as telas do APP,
 export const AppProvider = ({ item }) => {
-  //Instituição selecionada
+  //Dados selecionados
   const [instituteSelected, setInstituteSelected] = useState(null);
-
-  //Data e hora selecionados
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
+  const [serviceSelected, setServiceSelected] = useState(null);
 
   //Função que reseta os dados ao final de um agendamento
   const resetData = () => {
@@ -22,8 +23,8 @@ export const AppProvider = ({ item }) => {
 
   //USUARIOS
   //Função que cria um usuário no banco
-  const urlPatient = 'http://172.20.13.155:5107/api'
-
+  const baseUrl = "http://192.168.0.48:5107/api";
+                          
   const createUserContext = async (
     cpf,
     name,
@@ -32,52 +33,70 @@ export const AppProvider = ({ item }) => {
     email,
     password
   ) => {
-    const newUser = { cpf, name, phoneNumber, birthdayDate, email, password };
-    console.log(newUser)
-    const response = axios.post(`${urlPatient}/patient`, newUser, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then((response) => {
-      console.log(response);
-    }).catch((error) => console.log(error));
-    // try {
-    //   if (response.status === 201) {
-    //     console.log("Usuário criado com sucesso");
-    //     setUserList([...userList, newUser]);
-    //   } else {
-    //     console.error("Erro ao registrar usuário", response.data);
-    //   }
-    // } catch (error) {
-    //   console.error("Erro ao registrar usuário", error);
-    // }
-  };
+    const formattedBirthdayDate = birthdayDate.toISOString();
 
-  const [userList, setUserList] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loginError, setLoginError] = useState("");
+    const newUser = {
+      cpf,
+      name,
+      phoneNumber,
+      birthdayDate: formattedBirthdayDate,
+      email,
+      password,
+    };
+    console.log("Dados do novo usuário:", newUser);
 
-  //Função que busca um usuário no banco
-  const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${urlPatient}/patient`);
+      const response = await axios.post(`${baseUrl}/patient`, newUser, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       if (response.status === 200) {
-        USERS.push(response.data);
+        console.log("Usuário criado com sucesso");
+        ToastAndroid.show("Usuário criado com sucesso !", ToastAndroid.SHORT);
       } else {
-        console.error("Erro ao obter usuários", response.data);
+        console.error("Erro ao registrar usuário", response.data);
+        console.log(response.status);
       }
     } catch (error) {
-      console.error("Erro ao obter usuários", error);
+      if (error.response) {
+        // O servidor respondeu com um status diferente de 2xx
+        console.error("Erro na resposta da API:", error.response.data);
+        console.error("Status do erro:", error.response.status);
+        console.error("Cabeçalhos do erro:", error.response.headers);
+      } else if (error.request) {
+        // A requisição foi feita mas nenhuma resposta foi recebida
+        console.error("Erro na requisição:", error.request);
+      } else {
+        // Algo aconteceu ao configurar a requisição que desencadeou um erro
+        console.error("Erro:", error.message);
+      }
+      console.error("Configuração do erro:", error.config);
     }
   };
 
+  //Função que busca um usuário no banco
+  
+  const [loginError, setLoginError] = useState("");
+
   //Função que faz a parte de login
-  const loginUser = async (cpf, password) => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const loginUser = async (email, password) => {
     try {
-      const response = await axios.post("url/login", { cpf, password });
+      const response = await axios.post(`${baseUrl}/patient/login`, {
+        email,
+        password,
+      });
       if (response.status === 200) {
-        setCurrentUser(response.data.user);
+        setCurrentUser(response.data.name);
         setLoginError("");
+        await AsyncStorage.setItem("Token", response.data.token);
+        console.log(response);
+
+        const value = await AsyncStorage.getItem("Token");
+        console.log("Token: ", value);
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -91,49 +110,134 @@ export const AppProvider = ({ item }) => {
   };
 
   //INSTITUIÇÕES
-  const [serviceSelected, setServiceSelected] = useState(null);
   const [instituteList, setInstituteList] = useState([]);
-  const urlProvider = 'http://172.20.13.155:5107/api'
 
   const fetchInstitutesByService = async (serviceId) => {
     try {
-      const response = await axios.get(`${urlProvider}/provider?idService=${serviceId}`);
+      const value = await AsyncStorage.getItem("Token");
+      console.log(value);
+
+      const response = await axios.get(
+        `${baseUrl}/provider?idService=${serviceId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${value}`,
+          },
+        }
+      );
       if (response.status === 200) {
         setInstituteList(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } else {
         console.error("Erro ao obter instituições", response.data);
       }
-    } catch (error) { 
+    } catch (error) {
       console.error("Erro ao obter instituições", error);
     }
-
   };
 
   //SERVIÇOS
   const [services, setServices] = useState([]);
-  const urlService = "http://172.20.13.155:5107/api";
 
   const fetchServices = async () => {
-    
     try {
-      const response = await axios.get(`${urlService}/service`);
+      const value = await AsyncStorage.getItem("Token");
+      console.log(value);
+
+      const response = await axios.get(`${baseUrl}/service`, {
+        headers: {
+          Authorization: `Bearer ${value}`,
+        },
+      });
       console.log(response);
+
       if (response.status === 200) {
         setServices(response.data);
-        console.log(services)
+        console.log(services);
       } else {
         console.error("Erro ao obter serviços", response.data);
       }
     } catch (error) {
       console.error("Erro ao obter serviços2", error);
-      
     }
-    
-
   };
 
   //DATA E HORA
+  const [times, setTimes] = useState([])
+
+  const fetchTime = async (idProvider, idService, DataConsulta) => {
+    try {
+      const value = await AsyncStorage.getItem("Token");
+
+      const response = await axios.get(`${baseUrl}/appointment/times?idProvider=${idProvider}&idService=${idService}&DataConsulta=${DataConsulta}`, {
+        headers: {
+          Authorization: `Bearer ${value}`,
+        },
+      });
+      console.log(response);
+
+      if (response.status === 200) {
+        setTimes(response.data);
+        console.log(times);
+      } else {
+        console.error("Erro ao obter horarios", response.data);
+      }
+    } catch (error) {
+      console.error("Erro ao obter horarios", error);
+    }
+  };
+
+
+
+
+  //Informações de agendamento
+  const createAppointmentContext = async (
+    idProvider,
+    idService,
+    idProfessional,
+    DataConsulta
+  ) => {
+    const formattedDate = DataConsulta.toISOString();
+
+    const newAppointment = {
+      idProvider,
+      idService,
+      idProfessional,
+      DataConsulta: formattedDate
+    };
+    console.log("Dados do novo usuário:", newAppointment);
+
+    try {
+      const response = await axios.post(`${baseUrl}/appointment`, newAppointment, {
+        headers: {
+          Authorization: `Bearer ${value}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("Consulta criada com sucesso");
+        ToastAndroid.show("Consulta marcadao com sucesso !", ToastAndroid.SHORT);
+      } else {
+        console.error("Erro ao marcar consulta", response.data);
+        console.log(response.status);
+      }
+    } catch (error) {
+      if (error.response) {
+        // O servidor respondeu com um status diferente de 2xx
+        console.error("Erro na resposta da API:", error.response.data);
+        console.error("Status do erro:", error.response.status);
+        console.error("Cabeçalhos do erro:", error.response.headers);
+      } else if (error.request) {
+        // A requisição foi feita mas nenhuma resposta foi recebida
+        console.error("Erro na requisição:", error.request);
+      } else {
+        // Algo aconteceu ao configurar a requisição que desencadeou um erro
+        console.error("Erro:", error.message);
+      }
+      console.error("Configuração do erro:", error.config);
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -148,7 +252,6 @@ export const AppProvider = ({ item }) => {
         setSelectedHour,
         resetData,
         createUserContext,
-        fetchUsers,
         loginUser,
         loginError,
         currentUser,
@@ -156,6 +259,10 @@ export const AppProvider = ({ item }) => {
         fetchInstitutesByService,
         services,
         fetchServices,
+        fetchTime,
+        times,
+        createAppointmentContext,
+        currentUser,
       }}
     >
       {item}

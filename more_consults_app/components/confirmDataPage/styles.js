@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#025E64",
     fontWeight: '600',
+    textTransform: 'uppercase',
   },
   dataOne:{
     alignItems: "flex-end",
@@ -116,8 +117,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
-
-
   buttons:{
     height: "20%",
     flexDirection: "row",

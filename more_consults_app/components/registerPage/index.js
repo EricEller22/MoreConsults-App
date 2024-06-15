@@ -1,28 +1,37 @@
-import { SafeAreaView, Text, Image, TextInput, TouchableOpacity, View } from 'react-native';
-import { useState } from 'react';
-import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { useAppContext } from '../../src/contexts/AppContext';
-
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Platform,
+} from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
+import styles from "./styles";
+import { useAppContext } from "../../src/contexts/AppContext";
 
 export default function RegisterPage() {
-  // Dados do meu usuario
-  const [nome, setNome] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  // Dados do meu usuário
+  const [nome, setNome] = useState("Eric Eller");
+  const [cpf, setCpf] = useState("19923034798");
+  const [telefone, setTelefone] = useState("27999652362");
+  const [dataNascimento, setDataNascimento] = useState(new Date());
+  const [email, setEmail] = useState("eric.eller@gmail.com");
+  const [password, setPassword] = useState("Eric.9982");
+  const [confirmPassword, setConfirmPassword] = useState("Eric.9982");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Mensagens de erro
-  const [nomeError, setNomeError] = useState('');
-  const [cpfError, setCpfError] = useState('');
-  const [telefoneError, setTelefoneError] = useState('');
-  const [dataNascimentoError, setDataNascimentoError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [nomeError, setNomeError] = useState("");
+  const [cpfError, setCpfError] = useState("");
+  const [telefoneError, setTelefoneError] = useState("");
+  const [dataNascimentoError, setDataNascimentoError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   // Contexto
   const { createUserContext } = useAppContext();
@@ -33,72 +42,71 @@ export default function RegisterPage() {
   // Funções de validação
   const validateNome = (nome) => {
     if (nome.length === 0) {
-      setNomeError('*Nome inválido');
+      setNomeError("*Nome inválido");
       return false;
     }
-    setNomeError('');
+    setNomeError("");
     return true;
   };
 
   const validateCpf = (cpf) => {
     const cpfRegex = /^\d{11}$/;
     if (!cpfRegex.test(cpf)) {
-      setCpfError('*CPF inválido');
+      setCpfError("*CPF inválido");
       return false;
     }
-    setCpfError('');
+    setCpfError("");
     return true;
   };
 
   const validateTelefone = (telefone) => {
     const telefoneRegex = /^\d{10,11}$/;
     if (!telefoneRegex.test(telefone)) {
-      setTelefoneError('*Telefone inválido');
+      setTelefoneError("*Telefone inválido");
       return false;
     }
-    setTelefoneError('');
+    setTelefoneError("");
     return true;
   };
 
   const validateDataNascimento = (dataNascimento) => {
-    const dataRegex = /^\d{2}\/\d{2}\/\d{4}$/;
-    if (!dataRegex.test(dataNascimento)) {
-      setDataNascimentoError('*Data de nascimento inválida');
+    if (!dataNascimento) {
+      setDataNascimentoError("*Data de nascimento inválida");
       return false;
     }
-    setDataNascimentoError('');
+    setDataNascimentoError("");
     return true;
   };
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setEmailError('*Email inválido');
+      setEmailError("*Email inválido");
       return false;
     }
-    setEmailError('');
+    setEmailError("");
     return true;
   };
 
   const validatePassword = (password) => {
     if (password.length < 6) {
-      setPasswordError('*Senha deve ter pelo menos 6 caracteres');
+      setPasswordError("*Senha deve ter pelo menos 6 caracteres");
       return false;
     }
-    setPasswordError('');
+    setPasswordError("");
     return true;
   };
 
   const validateConfirmPassword = (password, confirmPassword) => {
     if (password !== confirmPassword) {
-      setConfirmPasswordError('*As senhas não correspondem');
+      setConfirmPasswordError("*As senhas não correspondem");
       return false;
     }
-    setConfirmPasswordError('');
+    setConfirmPasswordError("");
     return true;
   };
 
-  //Função disparada ao clicar no botão de registrar
+  // Função disparada ao clicar no botão de registrar
   const handleRegisterPress = async () => {
     const isNomeValid = validateNome(nome);
     const isCpfValid = validateCpf(cpf);
@@ -106,24 +114,44 @@ export default function RegisterPage() {
     const isDataNascimentoValid = validateDataNascimento(dataNascimento);
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
-    const isConfirmPasswordValid = validateConfirmPassword(password, confirmPassword);
+    const isConfirmPasswordValid = validateConfirmPassword(
+      password,
+      confirmPassword
+    );
 
-    if (isNomeValid && isCpfValid && isTelefoneValid && isDataNascimentoValid && isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-      await createUserContext(cpf, nome, telefone, dataNascimento, email, password);
-      navigation.navigate('Login');
+    if (
+      isNomeValid &&
+      isCpfValid &&
+      isTelefoneValid &&
+      isDataNascimentoValid &&
+      isEmailValid &&
+      isPasswordValid &&
+      isConfirmPasswordValid
+    ) {
+      await createUserContext(
+        cpf,
+        nome,
+        telefone,
+        dataNascimento,
+        email,
+        password
+      );
+      navigation.navigate("Login");
     }
   };
 
- 
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerLogo}>
-        <Image style={styles.logo} source={require('../../assets/Logo-mais-consultas2.png')} />
+        <Image
+          style={styles.logo}
+          source={require("../../assets/Logo-mais-consultas2.png")}
+        />
       </View>
 
       <View style={styles.containerInputs}>
-        <Text style={styles.title}>Cadastre-se</Text> 
+        <Text style={styles.title}>Cadastre-se</Text>
 
         <View style={styles.inputs}>
           <View style={styles.containerInput}>
@@ -131,8 +159,8 @@ export default function RegisterPage() {
               style={styles.input}
               onChangeText={(text) => setNome(text)}
               value={nome}
-              placeholder='Nome'
-              placeholderTextColor='#5F5959'
+              placeholder="Nome"
+              placeholderTextColor="#5F5959"
               onBlur={() => validateNome(nome)}
             />
             {nomeError ? <Text style={styles.alert}>{nomeError}</Text> : null}
@@ -142,8 +170,8 @@ export default function RegisterPage() {
               style={styles.input}
               onChangeText={(text) => setCpf(text)}
               value={cpf}
-              placeholder='Cpf'
-              placeholderTextColor='#5F5959'
+              placeholder="Cpf"
+              placeholderTextColor="#5F5959"
               onBlur={() => validateCpf(cpf)}
               keyboardType="numeric"
               maxLength={11}
@@ -155,31 +183,50 @@ export default function RegisterPage() {
               style={styles.input}
               onChangeText={(text) => setTelefone(text)}
               value={telefone}
-              placeholder='Telefone'
-              placeholderTextColor='#5F5959'
+              placeholder="Telefone"
+              placeholderTextColor="#5F5959"
               onBlur={() => validateTelefone(telefone)}
             />
-            {telefoneError ? <Text style={styles.alert}>{telefoneError}</Text> : null}
+            {telefoneError ? (
+              <Text style={styles.alert}>{telefoneError}</Text>
+            ) : null}
           </View>
           <View style={styles.containerInput}>
-            <TextInput
-              style={styles.input}
-              onChangeText={(text) => setDataNascimento(text)}
-              value={dataNascimento}
-              placeholder='Data de nascimento'
-              placeholderTextColor='#5F5959'
-              onBlur={() => validateDataNascimento(dataNascimento)}
-              keyboardType="numeric"
-            />
-            {dataNascimentoError ? <Text style={styles.alert}>{dataNascimentoError}</Text> : null}
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <TextInput
+                style={styles.input}
+                value={dataNascimento.toISOString().split("T")[0]}
+                placeholder="Data de nascimento"
+                placeholderTextColor="#5F5959"
+                editable={false}
+              />
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={dataNascimento}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  if (Platform.OS !== "ios") {
+                    setShowDatePicker(false);
+                  }
+                  if (selectedDate) {
+                    setDataNascimento(selectedDate);
+                  }
+                }}
+              />
+            )}
+            {dataNascimentoError ? (
+              <Text style={styles.alert}>{dataNascimentoError}</Text>
+            ) : null}
           </View>
           <View style={styles.containerInput}>
             <TextInput
               style={styles.input}
               onChangeText={(text) => setEmail(text)}
               value={email}
-              placeholder='Email'
-              placeholderTextColor='#5F5959'
+              placeholder="Email"
+              placeholderTextColor="#5F5959"
               onBlur={() => validateEmail(email)}
             />
             {emailError ? <Text style={styles.alert}>{emailError}</Text> : null}
@@ -190,36 +237,46 @@ export default function RegisterPage() {
               style={styles.input}
               onChangeText={(text) => setPassword(text)}
               value={password}
-              placeholder='Senha'
-              placeholderTextColor='#5F5959'
+              placeholder="Senha"
+              placeholderTextColor="#5F5959"
               secureTextEntry
               onBlur={() => validatePassword(password)}
             />
-            {passwordError ? <Text style={styles.alert}>{passwordError}</Text> : null}
+            {passwordError ? (
+              <Text style={styles.alert}>{passwordError}</Text>
+            ) : null}
           </View>
           <View style={styles.containerInput}>
             <TextInput
               style={styles.input}
               onChangeText={(text) => setConfirmPassword(text)}
               value={confirmPassword}
-              placeholder='Confirme a senha'
-              placeholderTextColor='#5F5959'
+              placeholder="Confirme a senha"
+              placeholderTextColor="#5F5959"
               secureTextEntry
               onBlur={() => validateConfirmPassword(password, confirmPassword)}
             />
-            {confirmPasswordError ? <Text style={styles.alert}>{confirmPasswordError}</Text> : null}
+            {confirmPasswordError ? (
+              <Text style={styles.alert}>{confirmPasswordError}</Text>
+            ) : null}
           </View>
         </View>
 
         <View style={styles.buttons}>
           <View style={styles.buttonOne}>
-            <TouchableOpacity style={styles.voltarButton} onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              style={styles.voltarButton}
+              onPress={() => navigation.goBack()}
+            >
               <Text style={styles.butonText}>Voltar</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.buttonTwo}>
-            <TouchableOpacity style={styles.cadastrarButton} onPress={handleRegisterPress}>
+            <TouchableOpacity
+              style={styles.cadastrarButton}
+              onPress={handleRegisterPress}
+            >
               <Text style={styles.butonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>

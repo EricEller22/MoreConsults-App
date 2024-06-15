@@ -125,27 +125,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   itemContainer: {
-    flexDirection: "row",
-    margin: 3,
-    maxWidth: 100,
-    minWidth: 80,
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  availableItem: {
-    backgroundColor: '#43B4BB',
-  },
-  unavailableItem: {
-    backgroundColor: '#D9D9D9',
+
   },
 
   buttons:{
     height: "20%",
     width: "100%",
+    margin: 20,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -160,6 +146,25 @@ const styles = StyleSheet.create({
   },
   butonText:{
     color: "#FFF",
+  },
+
+  selectedItem: {
+    backgroundColor: '#D9D9D9',
+  },
+  availableItem: {
+    backgroundColor: '#43B4BB',
+  },
+  itemContainer: {
+    flexDirection: "row",
+    margin: 3,
+    maxWidth: 100,
+    minWidth: 80,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
   },
 })
 

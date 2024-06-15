@@ -10,7 +10,7 @@ export default function InstitutePage() {
   const navigation = useNavigation();
 
   //Variaveis globais do contexto
-  const { instituteSelected, setInstituteSelected, instituteList, serviceSelected, fetchInstitutesByService } = useAppContext();
+  const { setInstituteSelected, instituteList, serviceSelected, fetchInstitutesByService } = useAppContext();
   const {nomeUsuario} = useAppContext();
 
   useEffect(() => {
@@ -21,9 +21,14 @@ export default function InstitutePage() {
   
   const handleItemClick = (item) => {
     console.log('Item clicado:', item);
-    setInstituteSelected(item.id);
+    setInstituteSelected(item);
     navigation.navigate("Calendary");
   };
+
+  const handleBackPress = () => {
+    setInstituteSelected(null)
+    navigation.goBack()
+  }
 
 
   const renderItem = ({ item }) => (
@@ -61,7 +66,7 @@ export default function InstitutePage() {
 
     <View style={styles.backButtonContainer}>
         <View style={styles.buttonContent}>
-          <TouchableOpacity style={styles.touchable} onPress={() => {navigation.goBack()}}>
+          <TouchableOpacity style={styles.touchable} onPress={() => {handleBackPress()}}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>

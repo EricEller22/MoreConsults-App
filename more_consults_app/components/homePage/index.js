@@ -7,7 +7,7 @@ import {useAppContext} from '../../src/contexts/AppContext'
 export default function HomePage() {
   const navigation = useNavigation();
   
-  const {nomeUsuario} = useAppContext()
+  const {currentUser} = useAppContext()
 
   return(
   <SafeAreaView style={styles.container}>
@@ -25,7 +25,7 @@ export default function HomePage() {
           <View style={styles.profileIcon}>
             <Icon name="user" size={40} color="#43B4BB" />
           </View>
-          <Text style={styles.profileLegend}>Olá {nomeUsuario} ! </Text>
+          <Text style={styles.profileLegend}>Olá {currentUser} ! </Text>
         </TouchableOpacity>
       </View>
     </View>

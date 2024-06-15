@@ -1,16 +1,21 @@
-import { SafeAreaView, Text, Image, View, TouchableOpacity, ScrollView, FlatList, Dimensions,Button  } from 'react-native' 
-import {useState, useEffect} from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from './styles'
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { useNavigation } from '@react-navigation/native';
-import { useAppContext } from '../../src/contexts/AppContext';
-
+import React, { useState, useEffect } from "react";
+import {
+  SafeAreaView,
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
+import { useAppContext } from "../../src/contexts/AppContext";
+import styles from "./styles";
 
 export default function CalendaryPage() {
-  const {selectedDate, setSelectedDate} = useAppContext();
-  const {selectedHour, setSelectedHour} = useAppContext();
-  const {nomeUsuario} = useAppContext();
+  const { selectedDate, setSelectedDate, instituteSelected, serviceSelected, times, fetchTime, currentUser } = useAppContext();
+  const { selectedHour, setSelectedHour } = useAppContext();
 
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
@@ -18,158 +23,116 @@ export default function CalendaryPage() {
   const navigation = useNavigation();
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date; 
+    const currentDate = selectedDate || date;
+    setShow(false); // Fecha o DateTimePicker após seleção da data
     setDate(currentDate);
+    const newSelectedDate = currentDate.toISOString().split('T')[0];
+    if (newSelectedDate !== selectedDate) {
+      const dataFormated = formatDate(newSelectedDate)
+      setSelectedDate(dataFormated); // Atualiza o estado com a nova data selecionada
+      console.log(newSelectedDate)
+    }
   };
-  
-  useEffect(() => {
-    setSelectedDate(date.toLocaleDateString());
-  }, [date]); 
 
+  useEffect(() => {
+    if (selectedDate) {
+      const DataConsulta = `${selectedDate}T00:00:00`;
+      fetchTime(instituteSelected, serviceSelected, DataConsulta);
+    }
+  }, [selectedDate, instituteSelected, serviceSelected]); // Atualiza sempre que selectedDate, instituteSelected ou serviceSelected forem alterados
 
   const showDatepicker = () => {
     setShow(true);
   };
 
-  const isWeekend = (date) => {
-    const day = date.getDay();
-    return day === 0 || day === 6; // 0 é Domingo e 6 é Sábado
-  };
-
-
- 
-  //Lista de horários
-  const [data, setData] = useState([
-    { id: "1", title: "08:00", available: true },
-    { id: "2", title: "08:30", available: true },
-    { id: "3", title: "09:00", available: true },
-    { id: "4", title: "09:30", available: true },
-    { id: "5", title: "10:00", available: true },
-    { id: "6", title: "10:30", available: true },
-    { id: "7", title: "11:00", available: true },
-    { id: "8", title: "11:30", available: true },
-    { id: "9", title: "12:00", available: true },
-    { id: "10", title: "12:30", available: true },
-    { id: "11", title: "13:00", available: true },
-    { id: "12", title: "13:30", available: true },
-    { id: "13", title: "14:00", available: true },
-    { id: "14", title: "14:30", available: true },
-    { id: "15", title: "15:00", available: true },
-    { id: "16", title: "15:30", available: true },
-    { id: "17", title: "16:00", available: true },
-    { id: "18", title: "16:30", available: true },
-    { id: "19", title: "17:00", available: true },
-    { id: "20", title: "17:30", available: true },
-  ]);
-
-  //Método disparado ao clicar em um horário
   const handleItemPress = (index) => {
-    const newData = [...data];
-    newData[index].available = !newData[index].available;
-    setData(newData);
-
-    const selectedHour = data[index].title; // Obtém o horário selecionado
-    setSelectedHour(selectedHour); // Atualiza o estado com o horário selecionado
+    const selectedHour = times[index].time; // Obtém o horário selecionado
+    if (selectedHour === times[index].time) {
+      setSelectedHour(selectedHour);
+    }
   };
-  
 
-  //Horário renderizado de acordo com a lista
-  const renderItem = ({ item, index }) => { 
-    const itemStyle = item.available ? styles.availableItem : styles.unavailableItem;
+  const renderItem = ({ item, index }) => {
+    const itemStyle = item.time === selectedHour ? styles.selectedItem : styles.availableItem;
 
     return (
-        <View style={[styles.itemContainer, itemStyle]}>
-        <TouchableOpacity onPress={() => handleItemPress(index)}>
-          <Text>{item.title}</Text>
+      <TouchableOpacity style={[styles.itemContainer, itemStyle]} onPress={() => handleItemPress(index)}>
+        <Text>{item.time}</Text>
       </TouchableOpacity>
-      </View>
     );
   };
 
-  return(
-  <SafeAreaView style={styles.container}>
+  const formatDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  };
 
-    <View style={styles.containerBlue}>
-      
-      <View style={styles.header}>
-      
-        <View>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}><Text style={styles.profileLegend}>Olá {nomeUsuario} ! </Text></TouchableOpacity>
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerBlue}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Text style={styles.profileLegend}>Olá {currentUser}!</Text>
+          </TouchableOpacity>
+          <Image style={styles.logo} source={require("../../assets/Logo-mais-consultas3.png")} />
         </View>
-
-        <Image
-          style={styles.logo}
-          source={require('../../assets/Logo-mais-consultas3.png')}
-        />
+        <View style={styles.containerLegend}>
+          <Text style={styles.legend}>
+            Agende agora o serviço que você precisa, de forma simples, fácil e rápida
+          </Text>
+        </View>
       </View>
-
-      <View style={styles.containerLegend}>
-        <Text style={styles.legend}>Agende agora o serviço que você precisa, de forma simples, fácil e rápida</Text>
-      </View>
-
-    </View>
-    
-
-    
-    <View style={styles.containerWhite}>
-    <View style={styles.backButtonContainer}>
-        <View style={styles.buttonContent}>
+      <View style={styles.containerWhite}>
+        <View style={styles.backButtonContainer}>
           <TouchableOpacity style={styles.touchable} onPress={() => navigation.goBack()}>
             <View style={styles.iconContainer}>
               <Icon name="arrow-left" size={20} color="#025E64" />
             </View>
-            <Text style={styles.backButton}>Intituições</Text>
+            <Text style={styles.backButton}>Instituições</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.containerCalendary}>
-        <TouchableOpacity onPress={showDatepicker} style={styles.buttonContainerCalendar}><Text style={styles.textButtonContainerCalendar}>Selecione a data clicando aqui:</Text></TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
-            minimumDate={new Date()} // Definindo a data mínima como hoje
-            maximumDate={new Date(new Date().getFullYear(), 11, 31)} // Definindo a data máxima como o final do ano atual
-            dateFormat="dayofweek day month"
+        <View style={styles.containerCalendary}>
+          <TouchableOpacity
+            onPress={showDatepicker}
+            style={styles.buttonContainerCalendar}
+          >
+            <Text style={styles.textButtonContainerCalendar}>
+              Selecione a data clicando aqui:
+            </Text>
+          </TouchableOpacity>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+              minimumDate={new Date()} // Definindo a data mínima como hoje
+              maximumDate={new Date(new Date().getFullYear(), 11, 31)} // Definindo a data máxima como o final do ano atual
+              dateFormat="dayofweek day month"
+            />
+          )}
+        </View>
+        <View style={styles.listHours}>
+          <FlatList
+            data={times}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            numColumns={4}
           />
-        )}
-      </View>
-
-
-
-
-      <View style={styles.listHours}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={4}
-        />
-
-      </View>
-      
-      <View>
-        <Text>Data selecionada: {selectedDate}</Text>
-        <Text>Hora selecionada: {selectedHour}</Text>
-      </View>
-
-      <View style={styles.buttons}>
+        </View>
         <View>
+          <Text>Data selecionada: {selectedDate ? selectedDate : 'Nenhuma data selecionada'}</Text>
+          <Text>Hora selecionada: {selectedHour}</Text>
+        </View>
+        <View style={styles.buttons}>
           <TouchableOpacity style={styles.confirmarButton} onPress={() => navigation.navigate("ConfirmData")}>
             <Text style={styles.butonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>
-
       </View>
-
-    </View>
-    
-
-  </SafeAreaView>
+    </SafeAreaView>
   );
 }
+

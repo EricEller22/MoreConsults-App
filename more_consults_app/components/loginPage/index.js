@@ -7,32 +7,25 @@ import { useAppContext } from '../../src/contexts/AppContext';
 export default function LoginPage() {
   const [alert, setAlert] = useState('');
 
-  const { loginUser, loginError, fetchUsers } = useAppContext();
+  const { loginUser, loginError} = useAppContext();
 
-  const [cpf, setCpf] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('eric.eller@gmail.com');
+  const [password, setPassword] = useState('Eric.9982');
 
   const navigation = useNavigation();
-
-  const validateCPF = (cpf) => {
-    const cpfPattern = /^\d{11}$/;
-    return cpfPattern.test(cpf);
-  };
 
   const validatePassword = (password) => {
     return password.length >= 6;
   };
 
   const handleLoginPress = async () => {
-    if (!validateCPF(cpf)) {
-      setAlert("*CPF deve conter 11 dígitos numéricos.");
-      return;
-    }
     if (!validatePassword(password)) {
       setAlert("*A senha deve conter pelo menos 6 caracteres.");
       return;
     }
-    await loginUser(cpf, password);
+
+    
+    await loginUser(email, password);
     if (!loginError) {
       navigation.navigate("Menu");
     } else {
@@ -57,12 +50,11 @@ export default function LoginPage() {
         <View style={styles.containerInput}>
           <TextInput
             style={styles.input}
-            onChangeText={(text) => setCpf(text)}
-            value={cpf}
-            placeholder='CPF'
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder='Email'
             placeholderTextColor="#FFF"
-            keyboardType="numeric"
-            maxLength={11}
+             
           />
         </View>
         <View style={styles.containerInput}>
