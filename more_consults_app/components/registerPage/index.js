@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -22,7 +22,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Mensagens de erro
   const [nomeError, setNomeError] = useState("");
@@ -140,29 +140,7 @@ export default function RegisterPage() {
     }
   };
 
-  const formatDate = (date) => {
-    const [year, month, day] = date.split('-');
-    return `${day}/${month}/${year}`;
-  };
-
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, dataNascimento) => {
-    const currentDate = dataNascimento || date;
-    setShow(false); // Fecha o DateTimePicker após seleção da data
-    setDate(currentDate);
-    const newSelectedDate = currentDate.toISOString().split('T')[0];
-    if (newSelectedDate !== dataNascimento) {
-      const dataFormated = formatDate(newSelectedDate)
-      setDataNascimento(dataFormated); // Atualiza o estado com a nova data selecionada
-    }
-  };
-
-  const showDatepicker = () => {
-    setShow(true);
-  };
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerLogo}>
@@ -214,30 +192,33 @@ export default function RegisterPage() {
             ) : null}
           </View>
           <View style={styles.containerInput}>
-            <View style={styles.containerCalendary}>
-              <TouchableOpacity
-                onPress={showDatepicker}
-                style={styles.buttonContainerCalendar}
-              >
-                <Text style={styles.textButtonContainerCalendar}>
-                  Data de nascimento
-                </Text>
-              </TouchableOpacity>
-              {show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode="date"
-                  is24Hour={true}
-                  display="default"
-                  onChange={onChange}
-                  dateFormat="dayofweek day month"
-                />
-              )}
-            </View>
-                {dataNascimentoError ? (
-                  <Text style={styles.alert}>{dataNascimentoError}</Text>
-                ) : null}
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <TextInput
+                style={styles.input}
+                value={dataNascimento.toISOString().split("T")[0]}
+                placeholder="Data de nascimento"
+                placeholderTextColor="#5F5959"
+                editable={false}
+              />
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={dataNascimento}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  if (Platform.OS !== "ios") {
+                    setShowDatePicker(false);
+                  }
+                  if (selectedDate) {
+                    setDataNascimento(selectedDate);
+                  }
+                }}
+              />
+            )}
+            {dataNascimentoError ? (
+              <Text style={styles.alert}>{dataNascimentoError}</Text>
+            ) : null}
           </View>
           <View style={styles.containerInput}>
             <TextInput
