@@ -15,10 +15,10 @@ export const AppProvider = ({ item }) => {
 
   //Função que reseta os dados ao final de um agendamento
   const resetData = () => {
-    setInstituteSelected(null);
-    setServiceSelected(null);
-    setSelectedDate(null);
-    setSelectedHour(null);
+    setInstituteSelected('');
+    setServiceSelected('');
+    setSelectedDate('');
+    setSelectedHour('');
   };
 
   //USUARIOS
@@ -34,7 +34,6 @@ export const AppProvider = ({ item }) => {
     password
   ) => {
     const formattedBirthdayDate = birthdayDate.toISOString();
-
     const newUser = {
       cpf,
       name,
@@ -82,6 +81,7 @@ export const AppProvider = ({ item }) => {
 
   //Função que faz a parte de login
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   const loginUser = async (email, password) => {
     try {
@@ -91,13 +91,15 @@ export const AppProvider = ({ item }) => {
       });
       if (response.status === 200) {
         setCurrentUser(response.data.name);
+        setCurrentUserId(response.data.id)
+        //console.log(response.data)
         setLoginError("");
-        await AsyncStorage.setItem("Token", response.data.token);
-        console.log(response);
 
+        await AsyncStorage.setItem("Token", response.data.token);
         const value = await AsyncStorage.getItem("Token");
         console.log("Token: ", value);
       }
+
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setLoginError("Usuário não encontrado");
@@ -115,7 +117,7 @@ export const AppProvider = ({ item }) => {
   const fetchInstitutesByService = async (serviceId) => {
     try {
       const value = await AsyncStorage.getItem("Token");
-      console.log(value);
+      //console.log(value);
 
       const response = await axios.get(
         `${baseUrl}/provider?idService=${serviceId}`,
@@ -142,14 +144,14 @@ export const AppProvider = ({ item }) => {
   const fetchServices = async () => {
     try {
       const value = await AsyncStorage.getItem("Token");
-      console.log(value);
+      //console.log(value);
 
       const response = await axios.get(`${baseUrl}/service`, {
         headers: {
           Authorization: `Bearer ${value}`,
         },
       });
-      console.log(response);
+      //console.log(response);
 
       if (response.status === 200) {
         setServices(response.data);
@@ -174,7 +176,7 @@ export const AppProvider = ({ item }) => {
           Authorization: `Bearer ${value}`,
         },
       });
-      console.log(response);
+      //console.log(response);
 
       if (response.status === 200) {
         setTimes(response.data);
@@ -187,27 +189,28 @@ export const AppProvider = ({ item }) => {
     }
   };
 
-
-
-
   //Informações de agendamento
+
+
   const createAppointmentContext = async (
-    idProvider,
-    idService,
-    idProfessional,
-    DataConsulta
+    IdProvider,
+    IdService,
+    IdPatient,
+    DateTime
   ) => {
-    const formattedDate = DataConsulta.toISOString();
 
     const newAppointment = {
-      idProvider,
-      idService,
-      idProfessional,
-      DataConsulta: formattedDate
+      IdService,
+      IdProvider,
+      IdPatient,
+      DateTime
     };
-    console.log("Dados do novo usuário:", newAppointment);
+
+    console.log("Dados da nova consulta:", newAppointment);
 
     try {
+      const value = await AsyncStorage.getItem("Token");
+
       const response = await axios.post(`${baseUrl}/appointment`, newAppointment, {
         headers: {
           Authorization: `Bearer ${value}`,
@@ -215,9 +218,17 @@ export const AppProvider = ({ item }) => {
         },
       });
 
+      const appointmentRelized = () => {
+        const aptm = response.data.id;
+        console.log(response.data.id);
+        fetchAppointment(response.data.id);
+      }
+
       if (response.status === 200) {
         console.log("Consulta criada com sucesso");
-        ToastAndroid.show("Consulta marcadao com sucesso !", ToastAndroid.SHORT);
+        appointmentRelized();
+
+        ToastAndroid.show("Consulta marcada com sucesso !", ToastAndroid.SHORT);
       } else {
         console.error("Erro ao marcar consulta", response.data);
         console.log(response.status);
@@ -236,8 +247,38 @@ export const AppProvider = ({ item }) => {
         console.error("Erro:", error.message);
       }
       console.error("Configuração do erro:", error.config);
+      console.erro(error)
     }
   };
+
+  //Puxa as informações do agendamento
+  const [appointmentData, setAppointmentData] = useState({})
+
+  const fetchAppointment = async (appointment) => {
+    try {
+      const value = await AsyncStorage.getItem("Token");
+
+      const response = await axios.get(`${baseUrl}/appointment/${appointment}`, {
+        headers: {
+          Authorization: `Bearer ${value}`,
+        },
+      });
+      console.log(response)
+
+      if (response.status === 200) {
+        console.log(response.data);
+        setAppointmentData(response.data);
+        
+      } else {
+        console.error("Erro ao obter consulta", response.data);
+      }
+    } catch (error) {
+      console.error("Erro ao obter consulta", error);
+      console.error("Erro ao obter consulta2", error.config);
+      console.error("Erro ao obter consulta3", error.request);
+    }
+  };
+
 
   return (
     <AppContext.Provider
@@ -263,6 +304,9 @@ export const AppProvider = ({ item }) => {
         times,
         createAppointmentContext,
         currentUser,
+        currentUserId,
+        fetchAppointment,
+        appointmentData,
       }}
     >
       {item}

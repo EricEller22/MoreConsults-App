@@ -49,9 +49,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-
-
-
   containerWhite:{
     backgroundColor: '#FFF',
     height: '90%',
@@ -64,7 +61,7 @@ const styles = StyleSheet.create({
   },
 
   containerLegendTwo:{
-    height: "25%",
+    height: "15%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -96,38 +93,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
   },
-  observation:{
-    alignItems: "center",
-    
-    width: "100%",
-    padding: 20
-  },
-  observationText:{
-    textAlign: "center",
-  },
-  observationCheckbox:{
-    marginVertical: 10,
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  checkbox:{
-    margin: 5,
-  },
-
 
   buttons:{
     height: "20%",
-    flexDirection: "row",
-    justifyContent: "flex-end"
+    justifyContent:"flex-end",
+    alignItems: "flex-end",
   },
-  voltarButton:{
-    width: 120,
-    height: 35,
-    backgroundColor: "#5F5959",
-    justifyContent:"center",
-    alignItems: "center",
-    borderRadius: 20,
-    margin: 5,
+  buttonTwo:{
+    margin: 20,
+    
   },
   confirmarButton:{
     width: 120,

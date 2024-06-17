@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./styles";
 import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +14,6 @@ import { useAppContext } from "../../src/contexts/AppContext";
 export default function ConcludedPage() {
   const [isChecked, setIsChecked] = useState(false);
   const navigation = useNavigation();
-
   const toggleCheckBox = () => {
     setIsChecked(!isChecked);
   };
@@ -25,18 +24,13 @@ export default function ConcludedPage() {
     selectedDate,
     selectedHour,
     currentUser,
-    resetData,
+    appointmentData,
+
   } = useAppContext();
 
   const handleConfirmPress = () => {
-    resetData();
     navigation.navigate("Home");
   };
-
-  //Função para puxar o medico
-  //Função para o endereço
-  //Função para persistir a consulta no banco dados
-  //Se sobrar tempo, puxar todos os agendamentos e os status, e apresentalos na tela de historico
 
 
   return (
@@ -66,40 +60,31 @@ export default function ConcludedPage() {
 
         <View style={styles.containerData}>
           <View style={styles.dataOne}>
-            <Text style={styles.textOne}>Instituição:</Text>
+            <Text style={styles.textOne}>Instituição: </Text>
+            <Text style={styles.textOne}>Contato:</Text>
+            <Text style={styles.textOne}>E-mail:</Text>
             <Text style={styles.textOne}>Serviço:</Text>
+            <Text style={styles.textOne}>Valor:</Text>
             <Text style={styles.textOne}>Data e hora:</Text>
             <Text style={styles.textOne}>Doutor(a):</Text>
             <Text style={styles.textOne}>Endereço:</Text>
-            <Text style={styles.textOne}>Valor:</Text>
+            
           </View>
           <View style={styles.dataTwo}>
-            <Text style={styles.textTwo}>{instituteSelected.name}</Text>
+          <Text style={styles.textTwo}>{appointmentData.provider.name}</Text>
+            <Text style={styles.textTwo}>{appointmentData.provider.phoneNumber}</Text>
+            <Text style={styles.textTwo}>{appointmentData.provider.email}</Text>
             <Text style={styles.textTwo}>{serviceSelected.name}</Text>
+            <Text style={styles.textTwo}>R$ {serviceSelected.price}</Text>
             <Text style={styles.textTwo}>
               {selectedDate} as {selectedHour}
             </Text>
-            <Text style={styles.textTwo}>{}</Text>
-            <Text style={styles.textTwo}>{}</Text>
-            <Text style={styles.textTwo}>R$ {serviceSelected.price}</Text>
+            <Text style={styles.textTwo}>{appointmentData.professional.name}</Text>
+            <Text style={styles.textTwo}>{appointmentData.provider.address.lineOne} - {appointmentData.provider.address.lineTwo} - {appointmentData.provider.address.city} - {appointmentData.provider.address.state}</Text>
+            
+            
           </View>
         </View>
-
-        {/** 
-      <View style={styles.observation}>
-        <Text style={styles.observationText}>Prazo máximo para cancelamento de até 3 dias úteis antes da data agendada! sujeito à cobrança extra no próximo agendamento</Text>
-
-        
-        <View style={styles.observationCheckbox}>
-        <CheckBox
-          value={isChecked}
-          onValueChange={setIsChecked}
-          style={styles.checkbox}
-        />
-          <Text>Li e concordo!</Text>
-        </View>
-      </View>
-      */}
 
         <View style={styles.buttons}>
           <View style={styles.buttonTwo}>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { format, parse } from 'date-fns';
 import {
   SafeAreaView,
   Text,
@@ -19,32 +20,45 @@ export default function ConfirmDataPage() {
     serviceSelected,
     selectedDate, setSelectedDate,
     selectedHour, setSelectedHour,
-    currentUser,
+    currentUser, currentUserId,
     createAppointmentContext,
   } = useAppContext();
 
+
+// Função para converter a data e hora para o formato ISO 8601
+const convertToISO8601 = (date, time) => {
+  const [day, month, year] = date.split('/');
+  const dateTimeString = `${year}-${month}-${day}T${time}:00.640Z`;
+  return format(parse(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", new Date()), "yyyy-MM-dd'T'HH:mm:ss.SSSX");
+}
+
   const pushInfoAppointment = (
-    idProvider,
-    idService,
+    IdProvider,
+    IdService,
+    patient,
     selectedDate,
     selectedHour,
   ) => {
     // Criando a data e hora formatada em ISO
-    const DataConsulta = new Date(`${selectedDate}T${selectedHour}:00`).toISOString();
+    const dateTime = convertToISO8601(selectedDate, selectedHour);
     
-    const idProfessional = idService.Professional
+    const IdPatient = patient
 
     createAppointmentContext(
-      idProvider,
-      idService,
-      idProfessional,
-      DataConsulta
+      IdProvider,
+      IdService,
+      IdPatient,
+      dateTime
     );
   };
 
   const handleConfirmPress = () => {
-    //pushInfoAppointment(instituteSelected, serviceSelected, selectedDate, selectedHour);
-    navigation.navigate("Concluded");
+    pushInfoAppointment(instituteSelected.id, serviceSelected.id, currentUserId, selectedDate, selectedHour);
+
+    setTimeout(() => {
+      navigation.navigate("Concluded");
+    }, 5000); 
+    
   };
 
   const handleBackPress = () => {

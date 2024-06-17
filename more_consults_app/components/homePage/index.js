@@ -1,4 +1,5 @@
 import { SafeAreaView, Text, Image, View, TouchableOpacity  } from 'react-native' 
+import { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles'
 import { useNavigation } from '@react-navigation/native';
@@ -7,8 +8,13 @@ import {useAppContext} from '../../src/contexts/AppContext'
 export default function HomePage() {
   const navigation = useNavigation();
   
-  const {currentUser} = useAppContext()
+  const {currentUser, resetData} = useAppContext()
 
+  useEffect(() => {
+    resetData();
+  }, []);
+
+  
   return(
   <SafeAreaView style={styles.container}>
  
