@@ -12,6 +12,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { useAppContext } from "../../src/contexts/AppContext";
 import styles from "./styles";
+import { format, parse } from 'date-fns';
 
 export default function CalendaryPage() {
   const { selectedDate, setSelectedDate, instituteSelected, serviceSelected, times, fetchTime, currentUser } = useAppContext();
@@ -34,10 +35,20 @@ export default function CalendaryPage() {
     }
   };
 
+  const convertToISO8601 = (date, time) => {
+    const [day, month, year] = date.split('/');
+    const dateTimeString = `${year}-${month}-${day}T${time}:00.640Z`;
+    return format(parse(dateTimeString, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", new Date()), "yyyy-MM-dd'T'HH:mm:ss.SSSX");
+  }
+
+  
+
   useEffect(() => {
+    setSelectedHour('00:00')
     if (selectedDate) {
-      const DataConsulta = `${selectedDate}T00:00:00`;
-      fetchTime(instituteSelected, serviceSelected, DataConsulta);
+      const dateTime = convertToISO8601(selectedDate, selectedHour);
+
+      fetchTime(instituteSelected.id, serviceSelected.id, dateTime);
     }
   }, [selectedDate, instituteSelected, serviceSelected]); // Atualiza sempre que selectedDate, instituteSelected ou serviceSelected forem alterados
 
@@ -53,10 +64,13 @@ export default function CalendaryPage() {
   };
 
   const renderItem = ({ item, index }) => {
-    const itemStyle = item.time === selectedHour ? styles.selectedItem : styles.availableItem;
-
+    // Determine the style based on item availability and selected hour
+    const itemStyle = !item.available ? styles.unavailableItem :
+                      item.time === selectedHour ? styles.selectedItem :
+                      styles.availableItem;
+  
     return (
-      <TouchableOpacity style={[styles.itemContainer, itemStyle]} onPress={() => handleItemPress(index)}>
+      <TouchableOpacity style={[styles.itemContainer, itemStyle]} onPress={() => handleItemPress(index)} disabled={!item.available}>
         <Text>{item.time}</Text>
       </TouchableOpacity>
     );

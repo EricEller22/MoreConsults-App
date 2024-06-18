@@ -9,8 +9,8 @@ export default function LoginPage() {
 
   const { loginUser, loginError} = useAppContext();
 
-  const [email, setEmail] = useState('eric.eller@gmail.com');
-  const [password, setPassword] = useState('Eric.9982');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 

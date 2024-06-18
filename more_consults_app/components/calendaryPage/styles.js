@@ -154,6 +154,9 @@ const styles = StyleSheet.create({
   availableItem: {
     backgroundColor: '#43B4BB',
   },
+  unavailableItem: {
+    backgroundColor: 'gray',
+  },
   itemContainer: {
     flexDirection: "row",
     margin: 3,

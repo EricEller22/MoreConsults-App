@@ -23,7 +23,7 @@ export const AppProvider = ({ item }) => {
 
   //USUARIOS
   //Função que cria um usuário no banco
-  const baseUrl = "http://192.168.0.48:5107/api";
+  const baseUrl = "http://172.20.18.170:5107/api";
                           
   const createUserContext = async (
     cpf,
